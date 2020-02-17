@@ -13,6 +13,8 @@ const favicon = require("serve-favicon");
 const path = require("path");
 const _ = require("lodash");
 
+
+
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +29,7 @@ app.use(
     })
   })
 );
-app.use(flash());
+
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
