@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const express = require("express");
 const hbs = require("hbs");
 const mongoose = require("mongoose");
@@ -12,6 +10,7 @@ const bodyParser = require("body-parser");
 const favicon = require("serve-favicon");
 const path = require("path");
 const _ = require("lodash");
+const dbConfig = require("./config/db.config.js");
 
 const app = express();
 
@@ -39,12 +38,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(async (req, res, next) => {
   res.locals.user = req.user;
 
-  const messageTypes = [
-    { flashName: "error", className: "danger" },
-    { flashName: "info", className: "info" }
-  ];
-  res.locals.messages = _.flatten(messageTypes.map(({ flashName, className }) => req.flash(flashName).map(message => ({ type: className, message }))));
-  next();
+  // const messageTypes = [
+  //   { flashName: "error", className: "danger" },
+  //   { flashName: "info", className: "info" }
+  // ];
+  // res.locals.messages = _.flatten(messageTypes.map(({ flashName, className }) => req.flash(flashName).map(message => ({ type: className, message }))));
+  // next();
 });
 
 const index = require("./routes/index");
