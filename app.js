@@ -9,10 +9,10 @@ const MongoStore = require("connect-mongo")(session);
 //const flash = require("flash");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const favicon = require("serve-favicon");
+//const favicon = require("serve-favicon");
 const sassMiddleware = require("node-sass-middleware");
 const path = require("path");
-const _ = require("lodash");
+//const _ = require("lodash");
 
 const app = express();
 
