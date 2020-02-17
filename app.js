@@ -13,6 +13,24 @@ const favicon = require("serve-favicon");
 const path = require("path");
 const _ = require("lodash");
 
+const app = express();
+
+mongoose
+  .connect(process.env.DBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(x => {
+    console.log(
+      `Connected to Mongo! Database name: "${x.connections[0].name}"`
+    );
+  })
+  .catch(err => {
+    console.error("Error connecting to mongo", err);
+  });
+
+module.exports = mongoose;
+
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,17 +41,18 @@ app.use(
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({
-      mongooseConnection: mongoose.connect
+      mongooseConnection: mongoose.connection
     })
   })
 );
+
 app.use(flash());
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 hbs.registerPartials(__dirname + "/views/partials");
 app.use(express.static(path.join(__dirname, "public")));
-app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
+/*app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));*/
 
 app.use(async (req, res, next) => {
   res.locals.user = req.user;
@@ -42,11 +61,15 @@ app.use(async (req, res, next) => {
     { flashName: "error", className: "danger" },
     { flashName: "info", className: "info" }
   ];
-  res.locals.messages = _.flatten(messageTypes.map(({ flashName, className }) => req.flash(flashName).map(message => ({ type: className, message }))));
+  res.locals.messages = _.flatten(
+    messageTypes.map(({ flashName, className }) =>
+      req.flash(flashName).map(message => ({ type: className, message }))
+    )
+  );
   next();
 });
 
-const index = require("./routes/index");
-app.use("/", index);
+/* const index = require("./routes/index");
+app.use("/", index); */
 
 module.exports = app;
