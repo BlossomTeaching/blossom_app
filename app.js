@@ -44,7 +44,11 @@ app.use(async (req, res, next) => {
     { flashName: "error", className: "danger" },
     { flashName: "info", className: "info" }
   ];
-  res.locals.messages = _.flatten(messageTypes.map(({ flashName, className }) => req.flash(flashName).map(message => ({ type: className, message }))));
+  res.locals.messages = _.flatten(
+    messageTypes.map(({ flashName, className }) =>
+      req.flash(flashName).map(message => ({ type: className, message }))
+    )
+  );
   next();
 });
 
