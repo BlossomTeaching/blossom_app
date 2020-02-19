@@ -8,12 +8,12 @@ const Linkedin = require("node-linkedin")(
 
 const scope = ["r_emailaddress", "r_liteprofile", "w_member_social"];
 
-linkedinRoute.get("/oauth/linkedin", (req, res) => {
+/* linkedinRoute.get("/oauth/linkedin", (req, res) => {
   const authUrl = Linkedin.auth.authorize(scope);
   res.status(200).json(authUrl);
-});
+}); */
 
-linkedinRoute.get("/oauth/linkedin/callback", (req, res) => {
+/* linkedinRoute.get("/oauth/linkedin/callback", (req, res) => {
   Linkedin.auth.getAccessToken(
     res,
     req.query.code,
@@ -32,4 +32,4 @@ linkedinRoute.get("/oauth/linkedin/callback", (req, res) => {
       }
     }
   );
-});
+}); */
