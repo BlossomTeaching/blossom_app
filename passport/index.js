@@ -1,9 +1,8 @@
 const passport = require("passport");
 const model = require("../models/User");
 
-// REQUIRE ALL STRATEGIES HERE!!!
+// Requirement of strategies
 require("./strategies/local");
-
 
 passport.serializeUser((user, cb) => {
   cb(null, user._id);
@@ -11,8 +10,7 @@ passport.serializeUser((user, cb) => {
 
 passport.deserializeUser((id, cb) => {
   console.log("deserializing user");
-  model
-    .findById(id)
+  User.findById(id)
     .then(user => cb(null, user))
     .catch(e => cb(err));
 
