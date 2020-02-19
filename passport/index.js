@@ -1,9 +1,16 @@
 const passport = require("passport");
 const model = require("../models/User");
 
-// Requirement of strategies
-require("./strategies/local");
+feature/passport-linkedin-fb
+// Requireall strategies
 
+require("./strategies/local");
+require("./strategies/facebook");
+require("./strategies/google");
+require("./strategies/linkedin");
+
+
+develop
 passport.serializeUser((user, cb) => {
   cb(null, user._id);
 });

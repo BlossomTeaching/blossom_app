@@ -1,6 +1,9 @@
 const passport = require("passport");
+const GoogleStrategy = require("passport-google").Strategy;
+
 GoogleStrategy = require("passport-google").Strategy;
-const User = require("../../models/User");
+
+
 
 passport.use(
   new GoogleStrategy(
@@ -8,9 +11,12 @@ passport.use(
       returnURL: "http://localhost:3000/auth/google/return",
       realm: "http://localhost:3000/"
     },
+
+
     function(identifier, done) {
       User.findByOpenID({ openId: identifier }, function(err, user) {
         return done(err, user);
+
       });
     }
   )
