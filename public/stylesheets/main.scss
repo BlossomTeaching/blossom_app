@@ -16,6 +16,9 @@ body {
   display: flex;
   align-items: flex-end;
 }
+form {
+  margin: 50px 300px;
+}
 
 @media (min-aspect-ratio: 16/9) {
   #videoBG {

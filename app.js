@@ -31,6 +31,9 @@ app.use(
   })
 );
 
+app.use(flash());
+require("./passport")(app);
+
 app.use(
   require("node-sass-middleware")({
     src: path.join(__dirname, "public"),
@@ -48,11 +51,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(async (req, res, next) => {
   res.locals.user = req.user;
 
-  // const messageTypes = [
-  //   { flashName: "error", className: "danger" },
-  //   { flashName: "info", className: "info" }
-  // ];
-  // res.locals.messages = _.flatten(messageTypes.map(({ flashName, className }) => req.flash(flashName).map(message => ({ type: className, message }))));
+  const messageTypes = [
+    { flashName: "error", className: "danger" },
+    { flashName: "info", className: "info" }
+  ];
+  res.locals.messages = _.flatten(messageTypes.map(({ flashName, className }) => req.flash(flashName).map(message => ({ type: className, message }))));
   next();
 });
 

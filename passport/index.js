@@ -1,7 +1,5 @@
 const passport = require("passport");
 const model = require("../models/User");
-
-feature / passport - linkedin - fb;
 // Requireall strategies
 
 require("./strategies/local");
