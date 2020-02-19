@@ -54,6 +54,23 @@ router.post("/login/facebook", isLoggedOut(), (req, res) => {
   });
 });
 
+//Google Passport Strategy
+
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: ["https://www.googleapis.com/auth/plus.login"]
+  })
+);
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function(req, res) {
+    res.redirect("/");
+  }
+);
+
 router.post("/login/google", isLoggedOut(), (req, res) => {
   passport.authenticate("google", {
     successRedirect: "/",
