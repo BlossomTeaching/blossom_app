@@ -1,8 +1,6 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google").Strategy;
 
-GoogleStrategy = require("passport-google").Strategy;
-
 passport.use(
   new GoogleStrategy(
     {
