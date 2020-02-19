@@ -20,9 +20,10 @@ router.post("/signup", async (req, res) => {
       roll,
       password: hashPassword(password)
     });
-    req.login(newUser, () => {
-      return res.redirect("/");
-    });
+    // req.login(newUser, () => {
+    //   return res.redirect("/");
+    // });
+    return res.redirect("/");
   } else {
     req.flash("error", "User already exists");
     return res.redirect("/auth/signup");

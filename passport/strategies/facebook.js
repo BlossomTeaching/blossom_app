@@ -4,8 +4,8 @@ const FacebookStrategy = require("passport-facebook").Strategy;
 passport.use(
   new FacebookStrategy(
     {
-      clientID: process.env["FACEBOOK_CLIENT_ID"],
-      clientSecret: process.env["FACEBOOK_CLIENT_SECRET"],
+      clientID: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
       callbackURL: "/return"
     },
     function(accessToken, refreshToken, profile, cb) {
