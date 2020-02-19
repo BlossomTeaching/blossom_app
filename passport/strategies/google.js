@@ -3,8 +3,6 @@ const GoogleStrategy = require("passport-google").Strategy;
 
 GoogleStrategy = require("passport-google").Strategy;
 
-
-
 passport.use(
   new GoogleStrategy(
     {
@@ -12,11 +10,9 @@ passport.use(
       realm: "http://localhost:3000/"
     },
 
-
     function(identifier, done) {
       User.findByOpenID({ openId: identifier }, function(err, user) {
         return done(err, user);
-
       });
     }
   )
