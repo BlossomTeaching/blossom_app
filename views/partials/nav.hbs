@@ -23,15 +23,23 @@
 
         </ul>
     </div>
-    <div class="nav-register">
-
-        <a href="/auth/login"><button type="button" class="btn btn-outline-primary">Log in</button></a>
-        <a href="/auth/signup"><button type="button" class="btn btn-outline-primary">Register</button></a>
-
+    <div class="my-2 my-lg-0">
+      <ul class="navbar-nav mr-auto">
+      {{#if user}}
+      <li class="nav-item">
+        <a class="nav-link" href="/profile">Welcome {{user.firstname}} {{user.lastname}}!</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/logout">Logout</a>
+      </li>
+      {{else}}
+      <li class="nav-item {{#if login}}active{{/if}}">
+        <a class="nav-link" href="/auth/login">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {{#if signup}}active{{/if}}">
+        <a class="nav-link" href="/auth/signup">Signup</a>
+      </li>
+      {{/if}}
+      </ul>
     </div>
-
-
-
-
-
 </nav>
