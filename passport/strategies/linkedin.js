@@ -1,20 +1,35 @@
+require("dotenv").config();
 const passport = require("passport");
-const LinkedInStrategy = require("passport-linkedin").Strategy;
-
-var LINKEDIN_API_KEY = "--insert-linkedin-api-key-here--";
-var LINKEDIN_SECRET_KEY = "--insert-linkedin-secret-key-here--";
-
-passport.use(
-  new LinkedInStrategy(
-    {
-      consumerKey: LINKEDIN_API_KEY,
-      consumerSecret: LINKEDIN_SECRET_KEY,
-      callbackURL: "http://3000/auth/linkedin/callback"
-    },
-    function(token, tokenSecret, profile, done) {
-      process.nextTick(function() {
-        return done(null, profile);
-      });
-    }
-  )
+const Linkedin = require("node-linkedin")(
+  process.env.CLIENT_ID,
+  process.env.SECRET_KEY,
+  process.env.callBack
 );
+
+const scope = ["r_emailaddress", "r_liteprofile", "w_member_social"];
+
+/* linkedinRoute.get("/oauth/linkedin", (req, res) => {
+  const authUrl = Linkedin.auth.authorize(scope);
+  res.status(200).json(authUrl);
+}); */
+
+/* linkedinRoute.get("/oauth/linkedin/callback", (req, res) => {
+  Linkedin.auth.getAccessToken(
+    res,
+    req.query.code,
+    req.query.state,
+    (err, results) => {
+      if (err) console.log(err);
+      else {
+        const linkedin = Linkedin.init(results.access_token);
+        linkedin.people.me((error, $in) => {
+          if (error) console.log(err);
+          return res.status(200).json({
+            $in,
+            token: results.access_token
+          });
+        });
+      }
+    }
+  );
+}); */
