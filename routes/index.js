@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("./auth.routes");
-const learn = require("./teach");
+const teach = require("./teach");
 
 router.use("/auth", auth);
-router.use("/learn", learn);
+router.use("/teach", teach);
 
 /* GET home page */
 router.get("/", (req, res, next) => {
+  console.log(req.user);
   res.render("index");
 });
 
