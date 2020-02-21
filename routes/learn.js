@@ -4,9 +4,10 @@ const Translation = require("../models/Translation");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 
 router.get("/", (req, res) => {
-  const { spanish, english } = exerciseGenerator();
-  console.log("spanish", spanish, "english", english);
-  res.render("learn", { spanish: spanish, english: english });
+  exerciseGenerator("A1").then(obj => {
+    const { spanish, english } = obj;
+    res.render("learn", { spanish, english });
+  });
 });
 
 module.exports = router;

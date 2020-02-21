@@ -19,6 +19,16 @@ body {
 form {
   margin: 50px 300px;
 }
+
+.learn {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin: 100px;
+  font-size: 40px;
+  height: 40vh;
+}
 @media (min-aspect-ratio: 16/9) {
   #videoBG {
     width: 100%;
