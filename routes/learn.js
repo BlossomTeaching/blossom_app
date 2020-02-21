@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Translation = require("../models/Translation");
-const { spanish, english } = require("../lib/exerciseGenerator");
+const exerciseGenerator = require("../lib/exerciseGenerator");
 
 router.get("/", (req, res) => {
-  console.log(spanish, english);
+  const { spanish, english } = exerciseGenerator();
+  console.log("spanish", spanish, "english", english);
   res.render("learn", { spanish: spanish, english: english });
 });
 
