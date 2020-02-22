@@ -2,8 +2,12 @@
   <div class="spanish">{{spanish}}</div>
   <div class="block">
     {{#each shuffleBlock}}
-      <div class="word">{{this}}</div>
+      <div class="word" id={{@index}}>{{this}}</div>
     {{/each}}
   </div>
-  <div class="english">{{english}}</div>
+  <div class="english" id="english">
+    {{#each english}}
+      <div class="word" id="answerWord{{@index}}">{{this}}</div>
+    {{/each}}
+  </div>
 </div>

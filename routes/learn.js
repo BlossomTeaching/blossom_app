@@ -9,10 +9,10 @@ router.get("/", (req, res) => {
     const { spanish, english } = obj;
     const regex = /[^a-zA-Z']/g;
     const correctBlock = english.split(" ").map(word => word.replace(regex, "").toLowerCase());
-    const shuffleBlock = correctBlock.map(word => word);
-    while (correctBlock === shuffleBlock) shuffle(shuffleBlock);
+    const shuffleBlock = [...correctBlock];
+    while (correctBlock.join("") === shuffleBlock.join("")) shuffle(shuffleBlock);
     console.log("shuffle", shuffleBlock, "correct", correctBlock);
-    res.render("learn", { spanish, shuffleBlock, english });
+    res.render("learn", { spanish, shuffleBlock, english: english.split(" "), length: correctBlock.length });
   });
 });
 
