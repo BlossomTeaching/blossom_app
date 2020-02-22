@@ -20,7 +20,7 @@ form {
   margin: 50px 300px;
 }
 
-.learn {
+.exercise {
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -29,6 +29,15 @@ form {
   font-size: 40px;
   height: 40vh;
 }
+
+.answer {
+  font-size: 20px;
+  display: flex;
+  .word {
+    margin: 0 10px;
+  }
+}
+
 @media (min-aspect-ratio: 16/9) {
   #videoBG {
     width: 100%;

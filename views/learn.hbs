@@ -1,4 +1,8 @@
-<div class="learn">
+<div class="exercise">
   <div class="spanish">{{spanish}}</div>
-  <div class="english">{{english}}</div>
+  <div class="answer">
+    {{#each shuffleBlock}}
+      <div class="word">{{this}}</div>
+    {{/each}}
+  </div>
 </div>
