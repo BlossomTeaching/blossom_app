@@ -49,8 +49,19 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 app.use(async (req, res, next) => {
-  res.locals.user = req.user;
-
+  res.locals = {
+    teacher: false,
+    student: false
+  };
+  if (req.user)
+    if (req.user.roll === "Teacher") {
+      res.locals.teacher = true;
+      res.locals.user = req.user;
+    } else if (req.user.roll === "Student") {
+      res.locals.student = true;
+      req.user;
+      res.locals.user = req.user;
+    }
   // const messageTypes = [
   //   { flashName: "error", className: "danger" },
   //   { flashName: "info", className: "info" }
