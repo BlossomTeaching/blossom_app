@@ -30,6 +30,13 @@ form {
   height: 40vh;
 }
 
+.click-english {
+  display: flex;
+  .click-word {
+    padding: 20px;
+  }
+}
+
 .block {
   font-size: 20px;
   display: flex;
