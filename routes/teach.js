@@ -6,7 +6,11 @@ const exerciseGenerator = require("../lib/exerciseGenerator");
 router.get("/", (req, res) => {
   exerciseGenerator("A1").then(obj => {
     const { spanish, english } = obj;
-    res.render("teach", { spanish, english });
+
+    res.render("teach", {
+      spanish,
+      english: english.split(" ")
+    });
   });
 });
 
