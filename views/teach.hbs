@@ -1,4 +1,8 @@
 <div class="exercise">
   <div class="spanish">{{spanish}}</div>
-  <div class="english">{{english}}</div>
+  <div class="click-english">
+    {{#each english}}
+    <div class="click-word">{{this}}</div>
+    {{/each}}
+  </div>
 </div>
