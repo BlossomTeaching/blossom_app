@@ -20,10 +20,9 @@ router.post("/signup", async (req, res) => {
       roll,
       password: hashPassword(password)
     });
-    // req.login(newUser, () => {
-    //   return res.redirect("/");
-    // });
-    return res.redirect("/");
+    req.login(newUser, () => {
+      return res.redirect("/");
+    });
   } else {
     req.flash("error", "User already exists");
     return res.redirect("/auth/signup");
@@ -79,13 +78,9 @@ router.get(
   })
 );
 
-router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
-  function(req, res) {
-    res.redirect("/");
-  }
-);
+router.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), function(req, res) {
+  res.redirect("/");
+});
 
 router.post("/login/google", isLoggedOut(), (req, res) => {
   passport.authenticate("google", {
