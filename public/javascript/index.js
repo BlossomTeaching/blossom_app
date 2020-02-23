@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
         answer.shift();
         if (isCompleted()) location.reload();
       } else {
+        w.animate([{ transform: "translateX(0px)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }], {
+          duration: 100,
+          iterations: 4
+        });
       }
     };
   });
