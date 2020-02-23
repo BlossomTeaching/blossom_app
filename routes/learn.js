@@ -5,9 +5,9 @@ const exerciseGenerator = require("../lib/exerciseGenerator");
 const shuffle = require("../lib/shuffler");
 
 router.get("/", (req, res) => {
-  exerciseGenerator("C1").then(obj => {
+  exerciseGenerator("C1", 5, 0).then(obj => {
     // Get sentences from DB object
-    const { spanish, english } = obj;
+    const { spanish, english, _id } = obj;
 
     // Create an array of the sentence, removing special characters
     const regex = /[^a-zA-Z1-9']/g;
@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
     while (correctBlock.join("") === shuffleBlock.join("")) shuffle(shuffleBlock);
 
     // Render page
-    res.render("learn", { spanish, shuffleBlock, english: english.split(" "), length: correctBlock.length });
+    res.render("learn", { spanish, shuffleBlock, english: english.split(" "), length: correctBlock.length, _id });
   });
 });
 
