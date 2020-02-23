@@ -5,9 +5,9 @@ const exerciseGenerator = require("../lib/exerciseGenerator");
 const shuffle = require("../lib/shuffler");
 
 router.get("/", (req, res) => {
-  exerciseGenerator("A1").then(obj => {
+  exerciseGenerator("C1").then(obj => {
     const { spanish, english } = obj;
-    const regex = /[^a-zA-Z']/g;
+    const regex = /[^a-zA-Z1-9']/g;
     const correctBlock = english.split(" ").map(word => word.replace(regex, "").toLowerCase());
     const shuffleBlock = [...correctBlock];
     while (correctBlock.join("") === shuffleBlock.join("")) shuffle(shuffleBlock);
