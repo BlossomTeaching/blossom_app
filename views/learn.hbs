@@ -1,17 +1,13 @@
 <div class="exercise">
   <div class="spanish">{{spanish}}</div>
-  <div class="block">
+  <div class="block" id="block">
     {{#each shuffleBlock}}
-<<<<<<< HEAD
-      <div class="word" id={{@index}}>{{this}}</div>
+      <button class="word" id="buttonWord{{@index}}">{{this}}</button>
     {{/each}}
   </div>
   <div class="english" id="english">
     {{#each english}}
       <div class="word" id="answerWord{{@index}}">{{this}}</div>
-=======
-    <div class="word">{{this}}</div>
->>>>>>> 27a069a7a1fc2410b2a2561b3fbf0cf9cf20ea78
     {{/each}}
   </div>
 </div>

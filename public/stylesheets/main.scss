@@ -29,6 +29,12 @@ form {
   font-size: 40px;
   height: 40vh;
 }
+.hidden {
+  color: white;
+}
+.incorrect {
+  color: #a64138;
+}
 .english {
   display: flex;
   .word {
