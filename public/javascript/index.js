@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("id", id);
   let mistakes = "";
 
+  var xhr = new XMLHttpRequest();
+
   for (let i = 0; i < length; i++) {
     sentence.push(document.getElementById("answerWord" + i));
     buttons.push(document.getElementById("buttonWord" + i));
@@ -19,7 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
       word.setAttribute("disabled", "");
       sentence[0].className = "word";
       sentence.shift();
-      if (isCompleted()) location.assign("/learn/" + id + "+" + mistakes);
+      if (isCompleted()) {
+        xhr.open("POST", "/learn", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(
+          JSON.stringify({
+            mistakes: mistakes
+          })
+        );
+        location.reload();
+      }
     } else {
       word.animate([{ transform: "translateX(0px)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }], {
         duration: 100,

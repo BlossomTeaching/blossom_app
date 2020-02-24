@@ -22,11 +22,11 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/:id", (req, res) => {
+router.post("/", (req, res) => {
   const { id } = req.params;
-  console.log("get id", id);
-
-  res.redirect("/learn");
+  const { mistakes } = req.body;
+  console.log("get id", id, mistakes);
+  res.send("/learn");
 });
 
 module.exports = router;
