@@ -3,23 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon -e js,hbs ./bin/www"
+  "directories": {
+    "lib": "lib"
   },
-  "engines": {
-    "node": "12.13.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BlossomTeaching/blossom_app.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/BlossomTeaching/blossom_app/issues"
-  },
-  "homepage": "https://github.com/BlossomTeaching/blossom_app#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -44,5 +30,20 @@
     "passport-local": "^1.0.0",
     "sass": "^1.25.0",
     "serve-favicon": "^2.5.0"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlossomTeaching/blossom_app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlossomTeaching/blossom_app/issues"
+  },
+  "homepage": "https://github.com/BlossomTeaching/blossom_app#readme"
 }
