@@ -7,6 +7,9 @@
     "start": "node ./bin/www",
     "dev": "nodemon -e js,hbs ./bin/www"
   },
+  "engines": {
+    "node": "12.13.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BlossomTeaching/blossom_app.git"
