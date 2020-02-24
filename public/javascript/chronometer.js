@@ -1,7 +1,7 @@
 function timer() {
-  var sec = 30;
-  var timer = setInterval(function() {
-    document.getElementById("safeTimerDisplay").innerHTML = "00:" + sec;
+  let sec = 30;
+  let timer = setInterval(function() {
+    document.getElementById("timer").innerHTML = sec;
     sec--;
     if (sec < 0) {
       clearInterval(timer);
