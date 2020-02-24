@@ -11,15 +11,22 @@ router.get("/", (req, res) => {
 
     // Create an array of the sentence, removing special characters
     const regex = /[^a-zA-Z1-9']/g;
-    const correctBlock = english.split(" ").map(word => word.replace(regex, "").toLowerCase());
+    const wordBlocks = english.split(" ").map(word => word.replace(regex, ""));
 
     // Copy sentence array and shuffle
-    const shuffleBlock = [...correctBlock];
-    while (correctBlock.join("") === shuffleBlock.join("")) shuffle(shuffleBlock);
+    const buttonWords = [...wordBlocks];
+    while (wordBlocks.join("") === buttonWords.join("")) shuffle(buttonWords);
 
     // Render page
-    res.render("learn", { spanish, shuffleBlock, english: english.split(" "), length: correctBlock.length, _id });
+    res.render("learn", { spanish, buttonWords, english: english.split(" "), length: wordBlocks.length, _id });
   });
+});
+
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  console.log("get id", id);
+
+  res.redirect("/learn");
 });
 
 module.exports = router;

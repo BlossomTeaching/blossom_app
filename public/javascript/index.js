@@ -1,29 +1,41 @@
 document.addEventListener("DOMContentLoaded", () => {
   const length = english.getElementsByClassName("word").length;
-  const answer = [];
+  const sentence = [];
   const buttons = [];
   const regex = /[^a-zA-Z']/g;
-
-  const isCompleted = () => (answer.length === 0 ? true : false);
+  const id = document.getElementById("id").textContent;
+  console.log("id", id);
+  let mistakes = "";
 
   for (let i = 0; i < length; i++) {
-    answer.push(document.getElementById("answerWord" + i));
+    sentence.push(document.getElementById("answerWord" + i));
     buttons.push(document.getElementById("buttonWord" + i));
-    console.log(answer);
+    console.log(sentence);
   }
-  answer.forEach(w => (w.className += " hidden"));
+
+  const isCompleted = () => (sentence.length === 0 ? true : false);
+  const response = (word, sentence, value) => {
+    if (value) {
+      word.setAttribute("disabled", "");
+      sentence[0].className = "word";
+      sentence.shift();
+      if (isCompleted()) location.assign("/learn/" + id + "+" + mistakes);
+    } else {
+      word.animate([{ transform: "translateX(0px)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }], {
+        duration: 100,
+        iterations: 4
+      });
+      mistakes += sentence[0].textContent + " ";
+    }
+  };
+
+  sentence.forEach(w => (w.className += " hidden"));
   buttons.forEach(w => {
     w.onclick = () => {
-      if (w.textContent === answer[0].textContent.toLowerCase().replace(regex, "")) {
-        w.setAttribute("disabled", "");
-        answer[0].className = "word";
-        answer.shift();
-        if (isCompleted()) location.reload();
+      if (w.textContent === sentence[0].textContent.replace(regex, "")) {
+        response(w, sentence, true);
       } else {
-        w.animate([{ transform: "translateX(0px)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }], {
-          duration: 100,
-          iterations: 4
-        });
+        response(w, sentence, false);
       }
     };
   });
