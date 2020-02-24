@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const regex = /[^a-zA-Z']/g;
   const id = document.getElementById("id").textContent;
   console.log("id", id);
-  let mistakes = "";
+  let mistakes = [];
+  let wordCount = 0;
 
   var xhr = new XMLHttpRequest();
 
@@ -21,12 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
       word.setAttribute("disabled", "");
       sentence[0].className = "word";
       sentence.shift();
+      wordCount++;
       if (isCompleted()) {
         xhr.open("POST", "/learn", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(
           JSON.stringify({
-            mistakes: mistakes
+            mistakes: mistakes,
+            id: id
           })
         );
         location.reload();
@@ -36,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 100,
         iterations: 4
       });
-      mistakes += sentence[0].textContent + " ";
+      mistakes.push(wordCount);
     }
   };
 

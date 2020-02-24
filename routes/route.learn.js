@@ -22,11 +22,12 @@ router.get("/", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
-  const { id } = req.params;
-  const { mistakes } = req.body;
+router.post("/", async (req, res) => {
+  const { id, mistakes } = req.body;
   console.log("get id", id, mistakes);
-  res.send("/learn");
+  await Translation.findByIdAndUpdate(id, {
+    mistakes
+  });
 });
 
 module.exports = router;
