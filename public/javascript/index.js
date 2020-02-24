@@ -14,16 +14,25 @@ document.addEventListener("DOMContentLoaded", () => {
   answer.forEach(w => (w.className += " hidden"));
   buttons.forEach(w => {
     w.onclick = () => {
-      if (w.textContent === answer[0].textContent.toLowerCase().replace(regex, "")) {
+      if (
+        w.textContent === answer[0].textContent.toLowerCase().replace(regex, "")
+      ) {
         w.setAttribute("disabled", "");
         answer[0].className = "word";
         answer.shift();
         if (isCompleted()) location.reload();
       } else {
-        w.animate([{ transform: "translateX(0px)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }], {
-          duration: 100,
-          iterations: 4
-        });
+        w.animate(
+          [
+            { transform: "translateX(0px)" },
+            { transform: "translateX(-5px)" },
+            { transform: "translateX(5px)" }
+          ],
+          {
+            duration: 100,
+            iterations: 4
+          }
+        );
       }
     };
   });
