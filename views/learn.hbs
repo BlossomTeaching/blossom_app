@@ -1,7 +1,7 @@
 <div class="exercise">
   <div class="spanish">{{spanish}}</div>
   <div class="block" id="block">
-    {{#each shuffleBlock}}
+    {{#each buttonWords}}
       <button class="word" id="buttonWord{{@index}}">{{this}}</button>
     {{/each}}
   </div>
@@ -10,4 +10,7 @@
       <div class="word" id="answerWord{{@index}}">{{this}}</div>
     {{/each}}
   </div>
+  <div class="hidden" id="id">{{_id}}
+  </div>
 </div>
+<script src="/javascript/front.learn.js"></script>

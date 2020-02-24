@@ -6,7 +6,8 @@ const Schema = new mongoose.Schema(
     english: String,
     level: String,
     booklet: Number,
-    length: Number
+    length: Number,
+    userStats: [{ userId: Number, score: Number, mistakes: [String] }]
   },
   {
     timestamps: true
