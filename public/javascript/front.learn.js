@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   timer(length);
 
   const goToNext = () => {
-    xhr.open("POST", "/learn", true);
+    xhr.open("POST", "/learn/practice", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(
       JSON.stringify({

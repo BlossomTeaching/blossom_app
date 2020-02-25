@@ -5,29 +5,39 @@ const Mistake = require("../models/Mistakes");
 const User = require("../models/User");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 const shuffle = require("../lib/shuffler");
+let exercise;
+let counter = 0;
 
-router.get("/", async (req, res) => {
+router.get("/create", async (req, res) => {
   const userLevel = req.user.level;
   const lesson = req.user.lessons[0];
 
   exerciseGenerator(userLevel, lesson).then(obj => {
-    // Get sentences from DB object
-    const { spanish, english, _id } = obj;
-
-    // Create an array of the sentence, removing special characters
-    const regex = /[^a-zA-Z1-9']/g;
-    const wordBlocks = english.split(" ").map(word => word.replace(regex, ""));
-
-    // Copy sentence array and shuffle
-    const buttonWords = [...wordBlocks];
-    while (wordBlocks.join("") === buttonWords.join("")) shuffle(buttonWords);
-
-    // Render page
-    res.render("learn", { spanish, buttonWords, english: english.split(" "), length: wordBlocks.length, _id });
+    exercise = obj;
   });
+  res.render("create");
 });
 
-router.post("/", async (req, res) => {
+router.get("/practice", async (req, res) => {
+  // Get sentences from DB object
+  console.log(exercise);
+
+  const { spanish, english, _id } = exercise[counter];
+
+  // Create an array of the sentence, removing special characters
+  const regex = /[^a-zA-Z1-9'/]/g;
+  const wordBlocks = english.split(" ").map(word => word.replace(regex, ""));
+
+  // Copy sentence array and shuffle
+  const buttonWords = [...wordBlocks];
+  while (wordBlocks.join("") === buttonWords.join("")) shuffle(buttonWords);
+
+  // Render page
+  res.render("practice", { spanish, buttonWords, english: english.split(" "), length: wordBlocks.length, _id });
+});
+
+router.post("/practice", async (req, res) => {
+  counter < exercise.length ? counter++ : (counter = 0);
   const { id, mistakes, score } = req.body;
   console.log("get id", id, mistakes, req.user._id);
 
