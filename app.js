@@ -70,7 +70,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
-const index = require("./routes/index");
+const index = require("./routes/route.index");
 app.use("/", index);
 
 module.exports = app;

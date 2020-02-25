@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Translation = require("../models/Translation");
+const Mistake = require("../models/Mistakes");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 const shuffle = require("../lib/shuffler");
 
@@ -23,11 +24,20 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { id, mistakes } = req.body;
-  console.log("get id", id, mistakes);
-  await Translation.findByIdAndUpdate(id, {
-    mistakes
-  });
+  const { id, mistakes, score } = req.body;
+  console.log("get id", id, mistakes, req.user._id);
+
+  Mistake.findOneAndUpdate(
+    {
+      $and: [{ translation: id.substring(0, 24) }, { user: req.user._id }]
+    },
+    { $push: { mistakes }, $push: { score } },
+    { new: true, upsert: true }
+  )
+    .populate("user")
+    .populate("translation")
+    .then(mistake => console.log(mistake))
+    .catch(err => console.log(err));
 });
 
 module.exports = router;

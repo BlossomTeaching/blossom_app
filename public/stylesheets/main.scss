@@ -44,7 +44,11 @@ form {
     margin: 0 5px;
   }
 }
-
+.scoreBar {
+  height: 5px;
+  background-color: #a64138;
+  transition: width 0.8s linear;
+}
 .click-english {
   display: flex;
   .click-word {
