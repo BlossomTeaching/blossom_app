@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       scoreBar.setAttribute("style", `width: ${score}%`);
       if (time < 0) {
         clearInterval(interval);
+        score = 0;
         goToNext();
       }
     }, 100);

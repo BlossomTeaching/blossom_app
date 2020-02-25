@@ -7,7 +7,9 @@ const userSchema = new Schema(
     lastname: { type: String, required: true },
     roll: { type: String, required: true },
     email: { type: String, required: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    level: String,
+    lessons: [[Number, Number]]
   },
   {
     timestamps: true

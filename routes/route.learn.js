@@ -2,11 +2,15 @@ const express = require("express");
 const router = express.Router();
 const Translation = require("../models/Translation");
 const Mistake = require("../models/Mistakes");
+const User = require("../models/User");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 const shuffle = require("../lib/shuffler");
 
-router.get("/", (req, res) => {
-  exerciseGenerator("C1", 5, 0).then(obj => {
+router.get("/", async (req, res) => {
+  const userLevel = req.user.level;
+  const lesson = req.user.lessons[0];
+
+  exerciseGenerator(userLevel, lesson).then(obj => {
     // Get sentences from DB object
     const { spanish, english, _id } = obj;
 
