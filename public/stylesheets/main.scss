@@ -41,7 +41,8 @@ a:hover {
     border: 2px solid $pink-border;
     border-radius: 0.75em;
     transform-style: preserve-3d;
-    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
+    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+      background 150ms cubic-bezier(0, 0, 0.58, 1);
     &::before {
       position: absolute;
       content: "";
@@ -55,7 +56,8 @@ a:hover {
       border-radius: inherit;
       box-shadow: 0 0 0 2px $pink-border, 0 0.625em 0 0 $pink-shadow;
       transform: translate3d(0, 0.75em, -1em);
-      transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+      transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+        box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
     }
     &:hover {
       background: $pink;
@@ -82,7 +84,11 @@ $bg: #f3f8fa;
 $white: #fff;
 $black: #282936;
 
-@mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65, 0, 0.076, 1)) {
+@mixin transition(
+  $property: all,
+  $duration: 0.45s,
+  $ease: cubic-bezier(0.65, 0, 0.076, 1)
+) {
   transition: $property $duration $ease;
 }
 
@@ -196,9 +202,12 @@ body {
   align-items: flex-end;
 }
 form {
-  margin: 50px 300px;
+  margin: 51px 300px;
 }
 
+#teacher-form {
+  display: none;
+}
 .exercise {
   display: flex;
   flex-flow: column;

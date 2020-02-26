@@ -57,12 +57,16 @@ router.post("/practice", async (req, res, next) => {
 router.get("/end", async (req, res) => {
   let mistakes = [];
   for (let i = 0; i < exercise.length; i++) {
-    const [mistake] = await Mistake.find({ $and: [{ translation: exercise[i]._id }, { user: req.user._id }] });
+    const [mistake] = await Mistake.find({
+      $and: [{ translation: exercise[i]._id }, { user: req.user._id }]
+    });
     mistakes.push(mistake);
   }
 
   const repeatExercise = exercise.filter(sentence => {
-    const result = mistakes.find(mistake => sentence._id.toString() === mistake.translation.toString());
+    const result = mistakes.find(
+      mistake => sentence._id.toString() === mistake.translation.toString()
+    );
 
     let avg = result.score.reduce((acc, e) => acc + e) / result.score.length;
 
