@@ -20,8 +20,21 @@ router.get("/create", async (req, res) => {
 
 router.get("/practice", async (req, res) => {
   // Get sentences from DB object
-  console.log(exercise);
+  exercise.filter(async sentence => {
+    const [mistake] = await Mistake.find({ $and: [{ translation: sentence._id }, { user: req.user._id }] });
+    let avg;
+    return sentence === 0;
+    // if (mistake.score.length > 1) {
+    //   avg = mistake.score.reduce((acc, e) => acc + e) / mistake.score.length;
+    //   return avg < 50;
+    // } else if ([...mistake.score] < 50) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+  });
 
+  console.log(exercise.length);
   const { spanish, english, _id } = exercise[counter];
 
   // Create an array of the sentence, removing special characters
@@ -37,7 +50,18 @@ router.get("/practice", async (req, res) => {
 });
 
 router.post("/practice", async (req, res) => {
-  counter < exercise.length ? counter++ : (counter = 0);
+  if (counter < exercise.length) {
+    counter++;
+    exercise.filter(e => {
+      let avg = e.score.reduce((acc, e) => acc + e) / e.score.length;
+      return avg > 50;
+    });
+  } else {
+    exercise.filter(e => {
+      let avg = e.score.reduce((acc, e) => acc + e) / e.score.length;
+      return avg > 50;
+    });
+  }
   const { id, mistakes, score } = req.body;
   console.log("get id", id, mistakes, req.user._id);
 
