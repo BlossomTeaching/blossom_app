@@ -32,7 +32,7 @@ router.get("/practice", async (req, res) => {
     while (wordBlocks.join("") === buttonWords.join("")) shuffle(buttonWords);
 
     // Render page
-    res.render("learn/practice", { spanish, buttonWords, english: english.split(" "), length: wordBlocks.length });
+    res.render("learn/practice", { spanish, buttonWords, english: english.split(" ") });
   } else {
     res.redirect("/learn/create");
   }
