@@ -1,20 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const length = english.getElementsByClassName("word").length;
-  const sentence = [];
+  const scoreBar = document.getElementById("scoreBar");
+  const getAnswer = document.getElementById("english");
+  const answer = getAnswer.dataset.english.split(",");
+  const answerDisplay = [];
   const buttons = [];
   const regex = /[^a-zA-Z']/g;
-  const scoreBar = document.getElementById("scoreBar");
   let mistakes = [];
   let wordCount = 0;
   let score = 0;
-
   var xhr = new XMLHttpRequest();
+  console.log(answer);
 
-  for (let i = 0; i < length; i++) {
-    sentence.push(document.getElementById("answerWord" + i));
+  for (let i = 0; i < answer.length; i++) {
+    answerDisplay.push(document.getElementById("answerDisplay" + i));
     buttons.push(document.getElementById("buttonWord" + i));
-    console.log(sentence);
   }
+  console.log(buttons);
 
   const scoreCalculator = (words, timer, mistakes) => {
     const goal = words * 20;
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, 100);
   };
-  timer(length);
+  timer(answer.length);
 
   const goToNext = () => {
     xhr.open("POST", "/learn/practice", true);
@@ -47,13 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     location.reload();
   };
-  const response = (word, sentence, value) => {
+  const response = (word, answer, value) => {
     if (value) {
       word.setAttribute("disabled", "");
-      sentence[0].className = "word";
-      sentence.shift();
+      answerDisplay[wordCount].className = "word";
+      answerDisplay[wordCount].textContent = answer[wordCount];
       wordCount++;
-      if (sentence.length === 0) {
+      if (answer.length === wordCount) {
         goToNext();
       }
     } else {
@@ -64,14 +65,17 @@ document.addEventListener("DOMContentLoaded", () => {
       mistakes.push(wordCount);
     }
   };
-
-  sentence.forEach(w => (w.className += " hidden"));
+  answerDisplay.forEach(w => (w.className += " hidden"));
   buttons.forEach(w => {
     w.onclick = () => {
-      if (w.textContent === sentence[0].textContent.replace(regex, "")) {
-        response(w, sentence, true);
+      if (w.textContent === answer[wordCount].replace(regex, "")) {
+        console.log("correct");
+
+        response(w, answer, true);
       } else {
-        response(w, sentence, false);
+        console.log("incorrect");
+
+        response(w, answer, false);
       }
     };
   });

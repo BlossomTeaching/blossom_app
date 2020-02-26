@@ -1,10 +1,10 @@
 <div class="scoreBar" id="scoreBar"></div>
 <div class="exercise">
   <div class="spanish">{{spanish}}</div>
-  <div class="english" id="english">
-    {{#each english}}
-      <div class="word" id="answerWord{{@index}}">{{this}}</div>
-    {{/each}}
+  <div class="english" id="english" data-english="{{english}}">
+      {{#each english}}
+      <button class="word" id="answerDisplay{{@index}}"></button>
+      {{/each}}
   </div>
   <div class="block" id="block">
     {{#each buttonWords}}

@@ -30,7 +30,7 @@ form {
   height: 40vh;
 }
 .hidden {
-  color: white;
+  display: none;
 }
 .incorrect {
   color: #a64138;
@@ -40,8 +40,16 @@ form {
 }
 .english {
   display: flex;
-  .word {
-    margin: 0 5px;
+  align-items: center;
+  border: 1px solid #c1d4d9;
+  height: 80px;
+  width: 90%;
+  margin-bottom: 70px;
+  padding: 10px;
+  button {
+    font-size: 20px;
+    height: 40px;
+    margin: 5px;
   }
 }
 .scoreBar {
@@ -55,16 +63,16 @@ form {
     padding: 6px;
   }
 }
+.word {
+  margin: 0 10px;
+  background-color: #c1d4d9;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
 
 .block {
   font-size: 20px;
   display: flex;
-  .word {
-    margin: 0 10px;
-    background-color: #c1d4d9;
-    padding: 5px 10px;
-    border-radius: 5px;
-  }
 }
 
 @media (min-aspect-ratio: 16/9) {
