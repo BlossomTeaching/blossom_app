@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const scoreBar = document.getElementById("scoreBar");
-  const getAnswer = document.getElementById("english");
-  const answer = getAnswer.dataset.english.split(",");
+  const getAnswer = document.getElementById("answer");
+  const answer = getAnswer.dataset.answer.split(",");
   const answerDisplay = [];
   const buttons = [];
   const regex = /[^a-zA-Z']/g;
@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons.push(document.getElementById("buttonWord" + i));
   }
   console.log(buttons);
+  console.log("ANSWER", answer);
 
   const scoreCalculator = (words, timer, mistakes) => {
     const goal = words * 20;
