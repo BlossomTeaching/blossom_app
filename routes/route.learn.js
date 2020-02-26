@@ -15,45 +15,27 @@ router.get("/create", async (req, res) => {
   exerciseGenerator(userLevel, lesson).then(obj => {
     exercise = obj;
   });
-  res.render("create");
+  res.render("learn/create");
 });
 
 router.get("/practice", async (req, res) => {
   // Get sentences from DB object
-  const newEx = exercise.filter(async sentenceObj => {
-    const [mistake] = await Mistake.find({ $and: [{ translation: sentenceObj._id }, { user: req.user._id }] });
-    let avg;
-    console.log("before if", mistake.score);
+  if (exercise) {
+    const { spanish, english, _id } = exercise[counter];
 
-    if (mistake.score.length > 1) {
-      console.log("reduce", mistake.score);
+    // Create an array of the sentence, removing special characters
+    const regex = /[^a-zA-Z1-9'/]/g;
+    const wordBlocks = english.split(" ").map(word => word.replace(regex, ""));
 
-      avg = mistake.score.reduce((acc, e) => acc + e) / mistake.score.length;
-      return avg < 50;
-    } else if ([...mistake.score] < 50) {
-      console.log("true", ...mistake.score);
+    // Copy sentence array and shuffle
+    const buttonWords = [...wordBlocks];
+    while (wordBlocks.join("") === buttonWords.join("")) shuffle(buttonWords);
 
-      return true;
-    } else {
-      console.log("false");
-
-      return false;
-    }
-  });
-
-  console.log(newEx.length);
-  const { spanish, english, _id } = exercise[counter];
-
-  // Create an array of the sentence, removing special characters
-  const regex = /[^a-zA-Z1-9'/]/g;
-  const wordBlocks = english.split(" ").map(word => word.replace(regex, ""));
-
-  // Copy sentence array and shuffle
-  const buttonWords = [...wordBlocks];
-  while (wordBlocks.join("") === buttonWords.join("")) shuffle(buttonWords);
-
-  // Render page
-  res.render("practice", { spanish, buttonWords, english: english.split(" "), length: wordBlocks.length, _id });
+    // Render page
+    res.render("learn/practice", { spanish, buttonWords, english: english.split(" "), length: wordBlocks.length, _id });
+  } else {
+    res.redirect("/learn/create");
+  }
 });
 
 router.post("/practice", async (req, res) => {
@@ -71,6 +53,24 @@ router.post("/practice", async (req, res) => {
     .populate("translation")
     .then(mistake => console.log(mistake))
     .catch(err => console.log(err));
+});
+
+router.get("/end", async (req, res) => {
+  let mistakes = [];
+  for (let i = 0; i < exercise.length; i++) {
+    const [mistake] = await Mistake.find({ $and: [{ translation: exercise[i]._id }, { user: req.user._id }] });
+    mistakes.push(mistake);
+  }
+
+  const repeatExercise = exercise.filter(sentence => {
+    const result = mistakes.find(mistake => sentence._id.toString() === mistake.translation.toString());
+    console.log("RESULTS", ...result.score);
+
+    let avg = result.score.reduce((acc, e) => acc + e) / result.score.length;
+
+    return avg < 50;
+  });
+  res.render("learn/end", { repeatExercise });
 });
 
 module.exports = router;
