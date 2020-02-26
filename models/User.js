@@ -8,7 +8,10 @@ const userSchema = new Schema(
     roll: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    teacheremail: { type: String }
+    teacheremail: { type: String },
+    level: String,
+    lessons: [[Number, Number]],
+    lessonNumber: Number
   },
   {
     timestamps: true
