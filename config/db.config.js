@@ -3,7 +3,7 @@ const dbUrl = process.env.DBURL;
 const mongoose = require("mongoose");
 
 mongoose
-  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })
