@@ -1,17 +1,15 @@
 <div class="scoreBar" id="scoreBar"></div>
 <div class="exercise">
   <div class="spanish">{{spanish}}</div>
-  <div class="block" id="block">
-    {{#each buttonWords}}
-      <button class="word" id="buttonWord{{@index}}">{{this}}</button>
-    {{/each}}
-  </div>
   <div class="english" id="english">
     {{#each english}}
       <div class="word" id="answerWord{{@index}}">{{this}}</div>
     {{/each}}
   </div>
-  <div class="hidden" id="id">{{_id}}
+  <div class="block" id="block">
+    {{#each buttonWords}}
+      <button class="word" id="buttonWord{{@index}}">{{this}}</button>
+    {{/each}}
   </div>
 </div>
 <script src="/javascript/front.learn.js"></script>

@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const sentence = [];
   const buttons = [];
   const regex = /[^a-zA-Z']/g;
-  const id = document.getElementById("id").textContent;
-  console.log("id", id);
   const scoreBar = document.getElementById("scoreBar");
   let mistakes = [];
   let wordCount = 0;
@@ -44,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     xhr.send(
       JSON.stringify({
         mistakes: mistakes,
-        id: id,
         score: score
       })
     );

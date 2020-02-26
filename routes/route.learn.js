@@ -21,7 +21,7 @@ router.get("/create", async (req, res) => {
 router.get("/practice", async (req, res) => {
   // Get sentences from DB object
   if (exercise) {
-    const { spanish, english, _id } = exercise[counter];
+    const { spanish, english } = exercise[counter];
 
     // Create an array of the sentence, removing special characters
     const regex = /[^a-zA-Z1-9'/]/g;
@@ -32,26 +32,25 @@ router.get("/practice", async (req, res) => {
     while (wordBlocks.join("") === buttonWords.join("")) shuffle(buttonWords);
 
     // Render page
-    res.render("learn/practice", { spanish, buttonWords, english: english.split(" "), length: wordBlocks.length, _id });
+    res.render("learn/practice", { spanish, buttonWords, english: english.split(" "), length: wordBlocks.length });
   } else {
     res.redirect("/learn/create");
   }
 });
 
 router.post("/practice", async (req, res) => {
-  const { id, mistakes, score } = req.body;
-  console.log("get id", id, mistakes, req.user._id, "score", score);
-
+  const { mistakes, score } = req.body;
+  counter++;
   Mistake.findOneAndUpdate(
     {
-      $and: [{ translation: id.substring(0, 24) }, { user: req.user._id }]
+      $and: [{ translation: exercise[counter]._id }, { user: req.user._id }]
     },
     { $push: { mistakes }, $push: { score } },
     { new: true, upsert: true }
   )
     .populate("user")
     .populate("translation")
-    .then(mistake => console.log(mistake))
+    .then(mistake => console.log("MISTAKES", mistake))
     .catch(err => console.log(err));
 });
 
