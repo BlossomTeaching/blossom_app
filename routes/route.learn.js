@@ -9,13 +9,21 @@ let exercise;
 let counter = 0;
 
 router.get("/create", async (req, res) => {
+  await User.findByIdAndUpdate(req.user._id, {
+    lessonNumber: 1
+  });
   const userLevel = req.user.level;
-  const lesson = req.user.lessons[0];
+  const lessons = req.user.lessons;
+  const lessonNumber = req.user.lessonNumber;
+  const currentLesson = lessons[lessonNumber - 1];
+  const totalLessons = lessons.length;
 
-  exerciseGenerator(userLevel, lesson).then(obj => {
+  exerciseGenerator(userLevel, currentLesson).then(obj => {
     exercise = obj;
   });
-  res.render("learn/create");
+  console.log(exercise.length);
+
+  res.render("learn/create", { lessonNumber, totalLessons, exercise });
 });
 
 router.get("/practice", async (req, res) => {

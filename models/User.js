@@ -9,7 +9,8 @@ const userSchema = new Schema(
     email: { type: String, required: true },
     password: { type: String, required: true },
     level: String,
-    lessons: [[Number, Number]]
+    lessons: [[Number, Number]],
+    lessonNumber: Number
   },
   {
     timestamps: true
