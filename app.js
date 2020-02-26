@@ -13,7 +13,6 @@ const _ = require("lodash");
 const dbConfig = require("./config/db.config.js");
 //const favicon = require("serve-favicon");
 const sassMiddleware = require("node-sass-middleware");
-const axios = require("axios");
 
 const app = express();
 
