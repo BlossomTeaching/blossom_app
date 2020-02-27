@@ -38,17 +38,13 @@ router.get("/practice", async (req, res) => {
 
 router.post("/practice", async (req, res, next) => {
   const { mistakes, score } = req.body;
-  Mistake.findOneAndUpdate(
+  await Mistake.findOneAndUpdate(
     {
       $and: [{ translation: exercise[counter]._id }, { user: req.user._id }]
     },
     { $push: { mistakes }, $push: { score } },
     { new: true, upsert: true }
-  )
-    .populate("user")
-    .populate("translation")
-    .then(mistake => mistake)
-    .catch(err => console.log(err));
+  );
 
   counter++;
   exercise.length === counter ? res.redirect("/learn/end") : res.redirect("/learn/practice");
