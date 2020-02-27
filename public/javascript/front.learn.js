@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let wordCount = 0;
   let score = 0;
   var xhr = new XMLHttpRequest();
+  let interval;
 
   for (let i = 0; i < answer.length; i++) {
     answerDisplay.push(document.getElementById("answerDisplay" + i));
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         score: score
       })
     );
-    // quit ? location.assign("/learn/end") : location.reload();
+    location.reload();
   };
 
   const scoreCalculator = (words, correct, mistakes) => {
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const timer = words => {
     const goal = words * 20;
     let timer = goal;
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       let time = Math.floor((timer / goal) * 100);
       timer--;
       score = scoreCalculator(answer.length, wordCount, mistakes.length);
@@ -56,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     score = scoreCalculator(answer.length, wordCount, mistakes.length);
     score < 0 ? (score = 0) : score;
     console.log("SCORE SENT", score);
+    clearInterval(interval);
     sendPost();
   };
   const response = (word, answer, value) => {

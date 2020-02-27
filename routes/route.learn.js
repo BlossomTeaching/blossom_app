@@ -8,6 +8,7 @@ const prepareString = require("../lib/prepareString");
 const { findScore, avgTotalScore, avgCurrentScore } = require("../lib/scoreCalculator");
 let exercise;
 let counter = 0;
+let end = false;
 
 router.get("/create", async (req, res) => {
   const userLevel = req.user.level;
@@ -16,7 +17,7 @@ router.get("/create", async (req, res) => {
   const currentLesson = lessons[lessonNumber - 1];
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator(userLevel, [1, 2]).then(obj => {
+  exerciseGenerator(userLevel, [1, 3]).then(obj => {
     exercise = obj;
     res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
   });
@@ -37,42 +38,28 @@ router.get("/practice", async (req, res) => {
 
 router.post("/practice", async (req, res, next) => {
   const { mistakes, score } = req.body;
+  Mistake.findOneAndUpdate(
+    {
+      $and: [{ translation: exercise[counter]._id }, { user: req.user._id }]
+    },
+    { $push: { mistakes }, $push: { score } },
+    { new: true, upsert: true }
+  )
+    .populate("user")
+    .populate("translation")
+    .then(mistake => mistake)
+    .catch(err => console.log(err));
+
   counter++;
-
-  if (exercise.length === counter) {
-    console.log("END EXERCISE");
-
-    return res.redirect("/learn/end");
-  } else if (!exercise) {
-    return res.redirect("/learn/create");
-  } else {
-    console.log("COUNTER", counter);
-
-    Mistake.findOneAndUpdate(
-      {
-        $and: [{ translation: exercise[counter]._id }, { user: req.user._id }]
-      },
-      { $push: { mistakes }, $push: { score } },
-      { new: true, upsert: true }
-    )
-      .populate("user")
-      .populate("translation")
-      .then(mistake => mistake)
-      .catch(err => console.log(err));
-  }
+  exercise.length === counter ? res.redirect("/learn/end") : res.redirect("/learn/practice");
+  if (!exercise) return res.redirect("/learn/create");
 });
 
 router.get("/end", async (req, res) => {
   console.log("END ROUTE", exercise);
-
-  if (exercise) {
-    const avg = await avgCurrentScore(exercise, req.user);
-    console.log("AVG END", avg);
-
-    res.render("learn/end", { avg, layout: "play.hbs" });
-  } else {
-    res.redirect("/learn/create");
-  }
+  const avg = await avgCurrentScore(exercise, req.user);
+  res.render("learn/end", { avg, layout: "play.hbs" });
+  console.log("AVG END", avg);
 });
 
 router.get("/phrase/:id", async (req, res) => {
