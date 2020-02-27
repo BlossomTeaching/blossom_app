@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let wordCount = 0;
   let score = 0;
   var xhr = new XMLHttpRequest();
-  console.log(answer);
 
   for (let i = 0; i < answer.length; i++) {
     answerDisplay.push(document.getElementById("answerDisplay" + i));
@@ -18,7 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log(buttons);
   console.log("ANSWER", answer);
 
-  const scoreCalculator = (words, mistakes) => Math.floor((mistakes.length / words.length) * 100);
+  const scoreCalculator = (words, correct, mistakes) => {
+    return Math.floor(((correct - mistakes) / words) * 100);
+  };
 
   const timer = words => {
     const goal = words * 20;
@@ -26,13 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const interval = setInterval(() => {
       let time = Math.floor((timer / goal) * 100);
       timer--;
-      score = scoreCalculator(answer, mistakes);
-      console.log(score);
+      score = scoreCalculator(answer.length, wordCount, mistakes.length);
+      console.log("SCORE", score);
 
       scoreBar.setAttribute("style", `width: ${time}%`);
       if (time < 0) {
         clearInterval(interval);
-        score = 0;
         goToNext();
       }
     }, 100);
@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
   timer(answer.length);
 
   const goToNext = () => {
+    score = scoreCalculator(answer.length, wordCount, mistakes.length);
+    score < 0 ? (score = 0) : score;
+    console.log("SCORE SENT", score);
+
     xhr.open("POST", "/learn/practice", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(

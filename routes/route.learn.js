@@ -17,10 +17,8 @@ router.get("/create", async (req, res) => {
 
   exerciseGenerator(userLevel, currentLesson).then(obj => {
     exercise = obj;
+    res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
   });
-  console.log(exercise.length);
-
-  res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
 });
 
 router.get("/practice", async (req, res) => {
@@ -36,6 +34,8 @@ router.get("/practice", async (req, res) => {
 
 router.post("/practice", async (req, res, next) => {
   const { mistakes, score } = req.body;
+  console.log("SCORE POST", score);
+
   if (exercise.length === counter) {
     next();
   } else if (!exercise) {
