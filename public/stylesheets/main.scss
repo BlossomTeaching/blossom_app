@@ -217,6 +217,11 @@ form {
   font-size: 40px;
   height: 40vh;
 }
+.card {
+  display: flex;
+  flex-direction: row;
+}
+
 .hidden {
   display: none;
 }
