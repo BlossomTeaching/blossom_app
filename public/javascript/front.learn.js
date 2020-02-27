@@ -21,9 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreCalculator = (words, mistakes) => Math.floor((mistakes.length / words.length) * 100);
 
   const timer = words => {
-    let time = words * 20;
+    const goal = words * 20;
+    let timer = goal;
     const interval = setInterval(() => {
-      time--;
+      let time = Math.floor((timer / goal) * 100);
+      timer--;
       score = scoreCalculator(answer, mistakes);
       console.log(score);
 
