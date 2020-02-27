@@ -20,7 +20,7 @@ router.get("/create", async (req, res) => {
   });
   console.log(exercise.length);
 
-  res.render("learn/create", { lessonNumber, totalLessons, exercise });
+  res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
 });
 
 router.get("/practice", async (req, res) => {
@@ -64,9 +64,7 @@ router.get("/end", async (req, res) => {
   }
 
   const repeatExercise = exercise.filter(sentence => {
-    const result = mistakes.find(
-      mistake => sentence._id.toString() === mistake.translation.toString()
-    );
+    const result = mistakes.find(mistake => sentence._id.toString() === mistake.translation.toString());
 
     let avg = result.score.reduce((acc, e) => acc + e) / result.score.length;
 
