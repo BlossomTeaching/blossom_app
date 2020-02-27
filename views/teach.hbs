@@ -1,7 +1,21 @@
-<div>
+{{#each students}}
 
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="../images/pixel-selfie.jpg" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">{{this.firstname}} {{this.lastname}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
 
+        <li class="list-group-item">Level: {{this.level}}</li>
+        <li class="list-group-item">Challenges:{{this.challenge}}</li>
+        <li class="list-group-item">Teacher assigned: {{this.teacheremail}}</li>
+    </ul>
+    <div class="card-body">
+        <a href="#" class="btn btn-primary">Go to Statistics</a>
+
+    </div>
 </div>
 
-</div>
+{{/each}}
 <script src="/javascript/front.teach.js"></script>
