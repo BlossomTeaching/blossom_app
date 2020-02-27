@@ -5,7 +5,7 @@ const User = require("../models/User");
 router.get("/", async (req, res, next) => {
   try {
     const students = await User.find({ roll: "Student" });
-    res.render("teach", { students });
+    res.render("teacherpanel", { students });
   } catch (e) {
     next();
   }
