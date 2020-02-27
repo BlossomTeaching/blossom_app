@@ -18,17 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log(buttons);
   console.log("ANSWER", answer);
 
-  const scoreCalculator = (words, timer, mistakes) => {
-    const goal = words * 20;
-    return Math.floor(((timer - (mistakes.length * 100) / 10) / goal) * 100);
-  };
+  const scoreCalculator = (words, mistakes) => Math.floor((mistakes.length / words.length) * 100);
 
   const timer = words => {
     let time = words * 20;
     const interval = setInterval(() => {
       time--;
-      score = scoreCalculator(words, time, mistakes);
-      scoreBar.setAttribute("style", `width: ${score}%`);
+      score = scoreCalculator(answer, mistakes);
+      console.log(score);
+
+      scoreBar.setAttribute("style", `width: ${time}%`);
       if (time < 0) {
         clearInterval(interval);
         score = 0;

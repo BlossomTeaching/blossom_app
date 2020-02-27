@@ -28,7 +28,7 @@ router.get("/practice", async (req, res) => {
     const { spanish, english } = exercise[counter];
     const { buttons, answer } = prepareString(english);
 
-    res.render("learn/practice", { spanish, buttons, answer });
+    res.render("learn/practice", { spanish, buttons, answer, layout: "play.hbs" });
   } else {
     res.redirect("/learn/create");
   }
@@ -40,6 +40,8 @@ router.post("/practice", async (req, res, next) => {
     next();
   } else if (!exercise) {
     next();
+  } else {
+    counter++;
   }
   Mistake.findOneAndUpdate(
     {
@@ -56,21 +58,25 @@ router.post("/practice", async (req, res, next) => {
 
 router.get("/end", async (req, res) => {
   let mistakes = [];
-  for (let i = 0; i < exercise.length; i++) {
-    const [mistake] = await Mistake.find({
-      $and: [{ translation: exercise[i]._id }, { user: req.user._id }]
+  if (exercise) {
+    for (let i = 0; i < exercise.length; i++) {
+      const [mistake] = await Mistake.find({
+        $and: [{ translation: exercise[i]._id }, { user: req.user._id }]
+      });
+      mistakes.push(mistake);
+    }
+
+    const repeatExercise = exercise.filter(sentence => {
+      const result = mistakes.find(mistake => sentence._id.toString() === mistake.translation.toString());
+
+      let avg = result.score.reduce((acc, e) => acc + e) / result.score.length;
+
+      return avg < 50;
     });
-    mistakes.push(mistake);
+    res.render("learn/end", { repeatExercise, layout: "play.hbs" });
+  } else {
+    res.redirect("/learn/create");
   }
-
-  const repeatExercise = exercise.filter(sentence => {
-    const result = mistakes.find(mistake => sentence._id.toString() === mistake.translation.toString());
-
-    let avg = result.score.reduce((acc, e) => acc + e) / result.score.length;
-
-    return avg < 50;
-  });
-  res.render("learn/end", { repeatExercise });
 });
 
 router.get("/phrase/:id", async (req, res) => {
