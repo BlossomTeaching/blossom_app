@@ -10,7 +10,7 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { firstname, lastname, roll, email, password } = req.body;
+  const { firstname, lastname, roll, email, password, teacheremail } = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
     const newUser = await User.create({
@@ -18,6 +18,7 @@ router.post("/signup", async (req, res) => {
       lastname,
       email,
       roll,
+      teacheremail,
       password: hashPassword(password)
     });
     req.login(newUser, () => {
@@ -78,9 +79,13 @@ router.get(
   })
 );
 
-router.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), function(req, res) {
-  res.redirect("/");
-});
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function(req, res) {
+    res.redirect("/");
+  }
+);
 
 router.post("/login/google", isLoggedOut(), (req, res) => {
   passport.authenticate("google", {
