@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreBar = document.getElementById("scoreBar");
   const getAnswer = document.getElementById("answer");
   const answer = getAnswer.dataset.answer.split(",");
+  const quit = document.getElementById("exitButton");
   const answerDisplay = [];
   const buttons = [];
   const regex = /[^a-zA-Z']/g;
@@ -16,6 +17,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   console.log(buttons);
   console.log("ANSWER", answer);
+
+  const sendPost = quit => {
+    xhr.open("POST", "/learn/practice", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(
+      JSON.stringify({
+        mistakes: mistakes,
+        score: score
+      })
+    );
+    // quit ? location.assign("/learn/end") : location.reload();
+  };
 
   const scoreCalculator = (words, correct, mistakes) => {
     return Math.floor(((correct - mistakes) / words) * 100);
@@ -43,16 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     score = scoreCalculator(answer.length, wordCount, mistakes.length);
     score < 0 ? (score = 0) : score;
     console.log("SCORE SENT", score);
-
-    xhr.open("POST", "/learn/practice", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(
-      JSON.stringify({
-        mistakes: mistakes,
-        score: score
-      })
-    );
-    location.reload();
+    sendPost();
   };
   const response = (word, answer, value) => {
     if (value) {
@@ -85,4 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
   });
+  quit.onclick = () => {
+    console.log("QUIT");
+
+    sendPost(true);
+  };
 });
