@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("RELOAD DOM");
   };
 
-  const scoreCalculator = (words, correct, mistakes) => {
+  const scoreCalculator = (words, correct, mistakes, time) => {
     return Math.floor((((correct - mistakes) / words) * 100 + time * 1.5) / 2);
   };
 
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     interval = setInterval(() => {
       time = Math.floor((timer / goal) * 100);
       timer--;
-      score = scoreCalculator(answer.length, wordCount, mistakes.length);
+      score = scoreCalculator(answer.length, wordCount, mistakes.length, time);
       console.log("SCORE", score);
 
       scoreBar.setAttribute("style", `width: ${time}%`);
