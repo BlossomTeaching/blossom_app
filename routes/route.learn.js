@@ -17,13 +17,14 @@ router.get("/create", async (req, res) => {
   const currentLesson = lessons[lessonNumber - 1];
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator(userLevel, [1, 3]).then(obj => {
+  exerciseGenerator(userLevel, [1, 5]).then(obj => {
     exercise = obj;
     res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
   });
 });
 
 router.get("/practice", async (req, res) => {
+  if (exercise.length === counter) res.redirect("/learn/end");
   if (exercise) {
     const { spanish, english } = exercise[counter];
     console.log("EXERCISE @", counter, exercise[counter], exercise.length);
@@ -47,7 +48,13 @@ router.post("/practice", async (req, res, next) => {
   );
 
   counter++;
-  exercise.length === counter ? res.redirect("/learn/end") : res.redirect("/learn/practice");
+  if (exercise.length === counter) {
+    console.log("END REDIRECT");
+
+    return res.redirect("/learn/end");
+  } else {
+    res.redirect("/learn/practice");
+  }
   if (!exercise) return res.redirect("/learn/create");
 });
 

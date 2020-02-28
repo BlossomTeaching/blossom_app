@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     );
     location.reload();
+    console.log("RELOAD DOM");
   };
 
   const scoreCalculator = (words, correct, mistakes) => {
