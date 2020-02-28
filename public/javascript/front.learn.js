@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         response(w, answer, true);
       } else {
-        console.log("incorrect");
+        console.log("incorrect", mistakes);
 
         response(w, answer, false);
       }
