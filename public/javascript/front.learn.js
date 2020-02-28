@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
   var xhr = new XMLHttpRequest();
   let interval;
+  let time;
 
   for (let i = 0; i < answer.length; i++) {
     answerDisplay.push(document.getElementById("answerDisplay" + i));
@@ -33,14 +34,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const scoreCalculator = (words, correct, mistakes) => {
-    return Math.floor(((correct - mistakes) / words) * 100);
+    return Math.floor((((correct - mistakes) / words) * 100 + time * 1.5) / 2);
   };
 
   const timer = words => {
     const goal = words * 20;
     let timer = goal;
     interval = setInterval(() => {
-      let time = Math.floor((timer / goal) * 100);
+      time = Math.floor((timer / goal) * 100);
       timer--;
       score = scoreCalculator(answer.length, wordCount, mistakes.length);
       console.log("SCORE", score);
