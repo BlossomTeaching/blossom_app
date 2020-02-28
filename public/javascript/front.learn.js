@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, 100);
   };
-  timer(answer.length);
+  // timer(answer.length);
 
   const goToNext = () => {
     score < 0 ? (score = 0) : score;

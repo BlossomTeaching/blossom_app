@@ -6,7 +6,7 @@
 
 @import url("../fonts/stylesheet.css");
 
-$text: #382b22;
+$text: #3c3c3c;
 $light-pink: #fff0f0;
 $pink: #ffe9e9;
 $dark-pink: #f9c4d2;
@@ -82,7 +82,7 @@ a:hover {
 // Start Button
 $bg: #f3f8fa;
 $white: #fff;
-$black: #282936;
+$black: #78c800;
 
 @mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65, 0, 0.076, 1)) {
   transition: $property $duration $ease;
@@ -183,18 +183,14 @@ $black: #282936;
 
 $background: #020916;
 $container: #5ab3b5; //#00ced1;
-$shirt: #b51231;
+$shirt: #78c800;
 $skin: #fed51d;
 $hair: #007cc3;
 
 .avatar-container {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  left: 10%;
-  top: 20%;
-  &.scaled {
-    transform: scale(1.5);
-  }
+  transform: scale(1.2);
+  left: 15%;
+  top: 25%;
 }
 
 .container {
@@ -321,7 +317,7 @@ $hair: #007cc3;
   top: calc(50% - 50px);
   z-index: 5;
   .eyes {
-    dispaly: flex;
+    display: flex;
     justify-content: space-between;
     position: absolute;
     top: 12px;
@@ -384,7 +380,7 @@ $hair: #007cc3;
   }
 }
 .cheeks {
-  dispaly: flex;
+  display: flex;
   justify-content: space-between;
   position: absolute;
   top: 55px;
@@ -430,23 +426,17 @@ $hair: #007cc3;
   }
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  30% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 body {
   font-family: "DINRoundPro", cursive;
+  color: $text;
 }
 h1 {
   font-weight: 800;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 25px;
 }
 .end {
   &.stats {
@@ -462,7 +452,11 @@ h1 {
   }
 }
 .create {
-  margin: 100px;
+  display: flex;
+  margin: 150px;
+}
+.create-text {
+  margin: 100px 0 0 50px;
 }
 .nav-logo {
   width: 20px;

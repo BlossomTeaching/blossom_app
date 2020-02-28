@@ -1,36 +1,39 @@
-<div class="create"><h1>Challenge {{lessonNumber}} of {{totalLessons}}</h1>
-<h2>Finish all {{exercise.length}} sentences with a score of 500 points or higher to move on to the next exercise</h2>
-<div class="avatar-container scaled">
-  <div class="container" onmouseover="makeVisible">
-    <div class="heart"></div>
-      <div class="avatar-ponytail"></div>
-      <div class="avatar-body">
-        <div class="shirt-button"></div>
-        <div class="heart-button"><p>&#10084</p></div>
-      </div>
-      <div class="avatar-hair"></div>
-      <div class="avatar-head"></div>
-      <div class="avatar-neck"></div>
-      <div class="avatar-face">
-        <div class="eyes"></div>
-        <div class="glasses">
-          <div class="left">
-            <div class="shine"></div>
-          </div>
-          <div class="right">
-            <div class="shine"></div>
-          </div>
+<div class="create">
+  <div class="avatar-container scaled">
+    <div class="container">
+      <div class="heart"></div>
+        <div class="avatar-ponytail"></div>
+        <div class="avatar-body">
+          <div class="shirt-button"></div>
+          <div class="heart-button"></div>
         </div>
-        <div class="cheeks"></div>
-      </div>
+        <div class="avatar-hair"></div>
+        <div class="avatar-head"></div>
+        <div class="avatar-neck"></div>
+        <div class="avatar-face">
+          <div class="eyes"></div>
+          <div class="glasses">
+            <div class="left">
+              <div class="shine"></div>
+            </div>
+            <div class="right">
+              <div class="shine"></div>
+            </div>
+          </div>
+          <div class="cheeks"></div>
+        </div>
+    </div>
   </div>
-</div>
-<div id="container">
-  <button class="play learn-more">
-    <span class="circle" aria-hidden="true">
-      <span class="icon arrow"></span>
-    </span>
-    <a href="/learn/practice" class="button-text">Start Challenge</a>
-  </button>
-</div>
+  <div class="create-text">
+    <h3>Challenge {{lessonNumber}} of {{totalLessons}}</h3>
+    <p>Finish all {{exercise.length}} sentences with a score of 500 points or higher to move on to the next exercise</p>
+    <div id="container">
+      <button class="play learn-more">
+        <span class="circle" aria-hidden="true">
+          <span class="icon arrow"></span>
+        </span>
+        <a href="/learn/practice" class="button-text">Start Challenge</a>
+      </button>
+    </div>
+  </div>
 </div>
