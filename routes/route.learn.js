@@ -48,14 +48,6 @@ router.post("/practice", async (req, res, next) => {
   );
 
   counter++;
-  if (exercise.length === counter) {
-    console.log("END REDIRECT");
-
-    return res.redirect("/learn/end");
-  } else {
-    res.redirect("/learn/practice");
-  }
-  if (!exercise) return res.redirect("/learn/create");
 });
 
 router.get("/end", async (req, res) => {
