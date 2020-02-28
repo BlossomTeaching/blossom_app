@@ -1,2 +1,21 @@
 <a href="/">Home</a>
 <h1>{{avg}}</h1>
+
+<div class="end stats">
+  <div class="sentences">
+    {{#each completed}}
+      <p class="spanish">{{this.translation.spanish}}</p>
+      <p class="english">{{this.translation.english}}</p>
+    {{/each}}
+  </div>
+  <div class="scores">
+    {{#each allCurrent}}
+      <p>{{this}}</p>
+    {{/each}}
+  </div>
+  <div class="scores">
+    {{#each bestScores}}
+      <p>{{this}}</p>
+    {{/each}}
+  </div>
+</div>
