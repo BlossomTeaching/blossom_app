@@ -5,7 +5,7 @@ const Mistake = require("../models/Mistakes");
 const User = require("../models/User");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 const prepareString = require("../lib/prepareString");
-const { findScore, avgTotalScore, avgCurrentScore } = require("../lib/scoreCalculator");
+const { findCompleted, avgTotalScore, avgCurrentScore } = require("../lib/scoreCalculator");
 let exercise;
 let counter = 0;
 let end = false;
@@ -17,7 +17,7 @@ router.get("/create", async (req, res) => {
   const currentLesson = lessons[lessonNumber - 1];
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator(userLevel, [1, 5]).then(obj => {
+  exerciseGenerator(userLevel, [1, 2]).then(obj => {
     exercise = obj;
     res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
   });
@@ -53,7 +53,8 @@ router.post("/practice", async (req, res, next) => {
 router.get("/end", async (req, res) => {
   console.log("END ROUTE", exercise);
   const avg = await avgCurrentScore(exercise, req.user);
-  res.render("learn/end", { avg, layout: "play.hbs" });
+  const completed = await findCompleted(exercise, req.user);
+  res.render("learn/end", { completed, avg, layout: "play.hbs" });
   console.log("AVG END", avg);
 });
 
