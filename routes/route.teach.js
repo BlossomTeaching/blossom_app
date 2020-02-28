@@ -1,17 +1,33 @@
 const express = require("express");
 const router = express.Router();
-const Translation = require("../models/Translation");
-const exerciseGenerator = require("../lib/exerciseGenerator");
+const User = require("../models/User");
 
-router.get("/", (req, res) => {
-  res.render("teach", {});
-  exerciseGenerator("A1", [1, 5]).then(obj => {
-    const { spanish, english } = obj[0];
-    res.render("teach", {
-      spanish,
-      english: english.split(" ")
-    });
-  });
+router.get("/", async (req, res, next) => {
+  try {
+    const students = await User.find({ roll: "Student" });
+    res.render("teach/teacherpanel", { students });
+  } catch (e) {
+    next();
+  }
+  console.log(students);
 });
 
+router.get("/:id", async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const students = await User.findById(id);
+    res.render("learn/statistics", { students });
+  } catch (e) {
+    next();
+  }
+});
+
+/* router.get("/",  async (req, res) => {
+  const students = await User.getUsers({ filter: { roll: "Student" } });
+ 
+  res.render("teach");
+  console.log(students);
+  return students;
+});
+ */
 module.exports = router;
