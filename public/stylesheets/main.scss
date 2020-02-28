@@ -477,14 +477,16 @@ form {
 #teacher-form {
   display: none;
 }
-.exercise {
+.practice-container {
   display: flex;
-  flex-flow: column;
   align-items: center;
-  justify-content: center;
-  margin: 100px;
+  flex-flow: column;
   font-size: 40px;
+  width: 100vw;
   height: 40vh;
+}
+.exercise {
+  width: 600px;
 }
 .card {
   display: flex;
@@ -498,14 +500,13 @@ form {
   color: #a64138;
 }
 .spanish {
-  text-align: center;
+  font-weight: 600;
+  font-size: 2rem;
 }
-.english {
-  display: flex;
-  align-items: center;
-  border: 1px solid #c1d4d9;
-  height: 80px;
-  width: 90%;
+.answer-box {
+  border: 2px solid #e5e5e5;
+  border-radius: 15px;
+  height: 60px;
   margin-bottom: 70px;
   padding: 10px;
   button {
