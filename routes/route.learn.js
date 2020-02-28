@@ -5,8 +5,10 @@ const Mistake = require("../models/Mistakes");
 const User = require("../models/User");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 const prepareString = require("../lib/prepareString");
+const { findScore, avgTotalScore, avgCurrentScore } = require("../lib/scoreCalculator");
 let exercise;
 let counter = 0;
+let end = false;
 
 router.get("/create", async (req, res) => {
   const userLevel = req.user.level;
@@ -14,21 +16,22 @@ router.get("/create", async (req, res) => {
   const lessonNumber = req.user.lessonNumber;
   const currentLesson = lessons[lessonNumber - 1];
   const totalLessons = lessons.length;
-
-  exerciseGenerator(userLevel, currentLesson).then(obj => {
+  counter = 0;
+  exerciseGenerator(userLevel, [1, 5]).then(obj => {
     exercise = obj;
+    res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
   });
-  console.log(exercise.length);
-
-  res.render("learn/create", { lessonNumber, totalLessons, exercise });
 });
 
 router.get("/practice", async (req, res) => {
+  if (exercise.length === counter) res.redirect("/learn/end");
   if (exercise) {
     const { spanish, english } = exercise[counter];
+    console.log("EXERCISE @", counter, exercise[counter], exercise.length);
+
     const { buttons, answer } = prepareString(english);
 
-    res.render("learn/practice", { spanish, buttons, answer });
+    res.render("learn/practice", { spanish, buttons, answer, layout: "play.hbs" });
   } else {
     res.redirect("/learn/create");
   }
@@ -36,43 +39,22 @@ router.get("/practice", async (req, res) => {
 
 router.post("/practice", async (req, res, next) => {
   const { mistakes, score } = req.body;
-  if (exercise.length === counter) {
-    next();
-  } else if (!exercise) {
-    next();
-  }
-  Mistake.findOneAndUpdate(
+  await Mistake.findOneAndUpdate(
     {
       $and: [{ translation: exercise[counter]._id }, { user: req.user._id }]
     },
     { $push: { mistakes }, $push: { score } },
     { new: true, upsert: true }
-  )
-    .populate("user")
-    .populate("translation")
-    .then(mistake => mistake)
-    .catch(err => console.log(err));
+  );
+
+  counter++;
 });
 
 router.get("/end", async (req, res) => {
-  let mistakes = [];
-  for (let i = 0; i < exercise.length; i++) {
-    const [mistake] = await Mistake.find({
-      $and: [{ translation: exercise[i]._id }, { user: req.user._id }]
-    });
-    mistakes.push(mistake);
-  }
-
-  const repeatExercise = exercise.filter(sentence => {
-    const result = mistakes.find(
-      mistake => sentence._id.toString() === mistake.translation.toString()
-    );
-
-    let avg = result.score.reduce((acc, e) => acc + e) / result.score.length;
-
-    return avg < 50;
-  });
-  res.render("learn/end", { repeatExercise });
+  console.log("END ROUTE", exercise);
+  const avg = await avgCurrentScore(exercise, req.user);
+  res.render("learn/end", { avg, layout: "play.hbs" });
+  console.log("AVG END", avg);
 });
 
 router.get("/phrase/:id", async (req, res) => {
