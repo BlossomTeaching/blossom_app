@@ -17,7 +17,7 @@ router.get("/create", async (req, res) => {
   const currentLesson = lessons[lessonNumber - 1];
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator(userLevel, [1, 3]).then(obj => {
+  exerciseGenerator("A2", [1, 3]).then(obj => {
     exercise = obj;
     res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
   });
