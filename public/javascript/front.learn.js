@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("ANSWER", answer);
 
   const sendPost = quit => {
+    console.log("SCORE POST", score);
+
     xhr.open("POST", "/learn/practice", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(
@@ -56,7 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
   timer(answer.length);
 
   const goToNext = () => {
-    score = scoreCalculator(answer.length, wordCount, mistakes.length);
     score < 0 ? (score = 0) : score;
     console.log("SCORE SENT", score);
     clearInterval(interval);
