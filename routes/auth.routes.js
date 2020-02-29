@@ -21,7 +21,6 @@ router.post("/signup", isLoggedOut(), async (req, res) => {
       teacheremail,
       password: hashPassword(password)
     });
-
     return res.redirect("/");
   } else {
     req.flash("error", "Username already exits");

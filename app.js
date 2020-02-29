@@ -29,6 +29,7 @@ app.use(
     })
   })
 );
+
 app.use(flash());
 
 require("./passport")(app);
@@ -61,7 +62,7 @@ app.use((req, res, next) => {
       req.user;
       res.locals.user = req.user;
     }
-  res.locals.errors = req.session.flash.map(e => e.message);
+
   next();
 });
 
