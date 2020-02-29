@@ -1,7 +1,7 @@
-{{#if errors}}
+{{#if messages}}
 <div class="alert alert-danger" role="alert">
-    {{#each errors}}
-    <span style="margin-right:5px">{{this}}</span>
-    {{/each}}
+  {{#each messages}}
+  <span style="margin-right:5px">{{this}}</span>
+  {{/each}}
 </div>
 {{/if}}
