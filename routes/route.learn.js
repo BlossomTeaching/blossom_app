@@ -6,6 +6,7 @@ const User = require("../models/User");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 const prepareString = require("../lib/prepareString");
 const { findCompleted, avgScore, avgTotalScore, avgCurrentScore, bestScore } = require("../lib/scoreCalculator");
+const lessonsMaker = require("../lib/lessonsMaker");
 let exercise;
 let counter = 0;
 let end = false;
