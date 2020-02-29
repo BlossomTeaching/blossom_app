@@ -8,13 +8,10 @@ const prepareString = require("../lib/prepareString");
 const { findCompleted, avgScore, avgTotalScore, avgCurrentScore, bestScore } = require("../lib/scoreCalculator");
 let exercise;
 let counter = 0;
-let end = false;
 
 router.get("/create", async (req, res) => {
-  const userLevel = req.user.level;
   const lessons = req.user.lessons;
   const lessonNumber = req.user.lessonNumber;
-  const currentLesson = lessons[lessonNumber - 1];
   const totalLessons = lessons.length;
   counter = 0;
   exerciseGenerator("B2", [1, 3]).then(obj => {
