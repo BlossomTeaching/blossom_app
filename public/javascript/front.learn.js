@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const scoreBar = document.getElementById("scoreBar");
+  const timeBar = document.getElementById("timeBar");
   const getAnswer = document.getElementById("answer");
   const answer = getAnswer.dataset.answer.split(",");
   const quit = document.getElementById("exitButton");
@@ -47,15 +47,15 @@ document.addEventListener("DOMContentLoaded", () => {
       timer--;
       score = scoreCalculator(answer.length, wordCount, mistakes.length, time);
       console.log("SCORE", score);
-
-      scoreBar.setAttribute("style", `width: ${time}%`);
+      console.log(timeBar);
+      timeBar.setAttribute("style", `width: ${time}%`);
       if (time < 0) {
         clearInterval(interval);
         goToNext();
       }
     }, 100);
   };
-  // timer(answer.length);
+  timer(answer.length);
 
   const goToNext = () => {
     score < 0 ? (score = 0) : score;
@@ -66,8 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const response = (word, answer, value) => {
     if (value) {
       word.setAttribute("disabled", "");
-      answerDisplay[wordCount].className = "word";
+      answerDisplay[wordCount].className = "button-words answer";
       answerDisplay[wordCount].textContent = answer[wordCount];
+      word.className = "button-words clicked";
       wordCount++;
       if (answer.length === wordCount) {
         goToNext();

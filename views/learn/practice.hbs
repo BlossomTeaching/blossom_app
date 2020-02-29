@@ -1,10 +1,13 @@
 <div class="practice-container">
-  <div class="scoreBar" id="scoreBar"></div>
+  <div class="scorebar-container">
+    <a href="/" id="exitButton"><div class="x"></div></a>
+    <div class="scorebar" id="scoreBar"><div class="time-bar" id="timeBar"></div></div>
+  </div>
   <div class="exercise">
     <div class="spanish">{{spanish}}</div>
     <div class="answer-block" id="answer" data-answer="{{answer}}">
         {{#each answer}}
-        <div class="word" id="answerDisplay{{@index}}"></div>
+        <div class="button-words answer" id="answerDisplay{{@index}}"></div>
         {{/each}}
     </div>
     <div class="buttons-block" id="block">
@@ -12,7 +15,6 @@
         <div class="button-words" id="buttonWord{{@index}}">{{this}}</div>
       {{/each}}
     </div>
-    <a href="/" id="exitButton">Exit</a>
   </div>
   <script src="/javascript/front.learn.js"></script>
 </div>

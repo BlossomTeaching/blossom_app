@@ -7,6 +7,8 @@
 @import url("../fonts/stylesheet.css");
 
 $text: #3c3c3c;
+$light-grey: #e5e5e5;
+$cross: #bababa;
 
 * {
   box-sizing: border-box;
@@ -22,7 +24,7 @@ a:hover {
 // Start Button
 $bg: #f3f8fa;
 $white: #fff;
-$black: #78c800;
+$green: #78c800;
 
 @mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65, 0, 0.076, 1)) {
   transition: $property $duration $ease;
@@ -50,7 +52,7 @@ $black: #78c800;
       margin: 0;
       width: 3rem;
       height: 3rem;
-      background: $black;
+      background: $green;
       border-radius: 1.625rem;
       .icon {
         @include transition(all, 0.45s, cubic-bezier(0.65, 0, 0.076, 1));
@@ -88,7 +90,7 @@ $black: #78c800;
       bottom: 0;
       padding: 0.75rem 0;
       margin: 0 0 0 1.85rem;
-      color: $black;
+      color: $green;
       font-weight: 700;
       line-height: 1.6;
       text-align: center;
@@ -366,6 +368,40 @@ $hair: #007cc3;
   }
 }
 
+// Cross X
+
+.x {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  &:hover {
+    &::before,
+    &::after {
+      background: $cross;
+    }
+  }
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: $cross;
+  }
+  &::before {
+    transform: (rotate(45deg));
+  }
+  &::after {
+    transform: (rotate(-45deg));
+  }
+}
+
+// Main CSS
 body {
   font-family: "DINRoundPro", cursive;
   color: $text;
@@ -421,7 +457,6 @@ form {
   display: flex;
   align-items: center;
   flex-flow: column;
-  font-size: 40px;
   width: 100vw;
   height: 100vh;
 }
@@ -444,24 +479,38 @@ form {
   font-size: 1.9rem;
 }
 .answer-block {
+  display: flex;
+  align-items: flex-end;
   height: 100px;
   margin-bottom: 20px;
   border-bottom: 2px solid #e5e5e5;
 }
 .buttons-block {
   position: absolute;
-  font-size: 20px;
   display: flex;
 }
 .button-words {
+  font-size: 20px;
   position: relative;
   border: 1.5px solid #e5e5e5;
   border-radius: 15px;
   height: 40px;
-  margin-right: 10px;
+  width: fit-content;
+  margin: 0 10px 5px 0;
   padding: 2px 10px 5px 10px;
   box-shadow: 0 3px 0 0 #e5e5e5;
   &:hover {
+    box-shadow: none;
+    top: 3px;
+    cursor: pointer;
+  }
+  &.answer {
+    box-shadow: none;
+    margin-right: 2px;
+  }
+  &.clicked {
+    background: $light-grey;
+    color: $light-grey;
     box-shadow: none;
     top: 3px;
   }
@@ -471,13 +520,25 @@ form {
     margin: 5px;
   }
 }
-.scoreBar {
+.scorebar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  width: 100vw;
+}
+.scorebar {
   margin: 50px 10px;
   width: 90%;
   border-radius: 20px;
   height: 17px;
-  background-color: #e5e5e5;
-  transition: width 0.8s linear;
+  background-color: $light-grey;
+  .time-bar {
+    background: $shirt;
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.8s linear;
+  }
 }
 .click-english {
   display: flex;
