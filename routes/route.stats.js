@@ -6,5 +6,5 @@ const User = require("../models/User");
 const lessonsMaker = require("../lib/lessonsMaker");
 
 router.get("/", (req, res) => {
-  res.render("stats");
+  res.render("statistics");
 });
