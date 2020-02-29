@@ -5,13 +5,7 @@ const Mistake = require("../models/Mistakes");
 const User = require("../models/User");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 const prepareString = require("../lib/prepareString");
-const {
-  findCompleted,
-  avgScore,
-  avgTotalScore,
-  avgCurrentScore,
-  bestScore
-} = require("../lib/scoreCalculator");
+const { findCompleted, avgScore, avgTotalScore, avgCurrentScore, bestScore } = require("../lib/scoreCalculator");
 let exercise;
 let counter = 0;
 let end = false;
@@ -74,9 +68,7 @@ router.get("/end", async (req, res) => {
     const avg = await avgCurrentScore(exercise, req.user);
     const completed = await findCompleted(exercise, req.user);
     const avgTotals = completed.map(mistake => avgScore(mistake.score));
-    const allCurrent = completed.map(
-      mistake => mistake.score[mistake.score.length - 1]
-    );
+    const allCurrent = completed.map(mistake => mistake.score[mistake.score.length - 1]);
     const bestScores = await bestScore(exercise, req.user);
     console.log("COMPLETED @ END", completed, "BEST SCORE", bestScores);
 

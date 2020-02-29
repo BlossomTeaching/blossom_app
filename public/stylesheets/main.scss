@@ -4,12 +4,11 @@
 
 @import url("https://fonts.googleapis.com/css?family=Mukta:700");
 
-$text: #382b22;
-$light-pink: #fff0f0;
-$pink: #ffe9e9;
-$dark-pink: #f9c4d2;
-$pink-border: #b18597;
-$pink-shadow: #ffe3e2;
+@import url("../fonts/stylesheet.css");
+
+$text: #3c3c3c;
+$light-grey: #e5e5e5;
+$cross: #bababa;
 
 * {
   box-sizing: border-box;
@@ -21,66 +20,11 @@ $pink-shadow: #ffe3e2;
 a:hover {
   text-decoration: none;
 }
-// Word Button
-.word {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  outline: none;
-  border: 0;
-  vertical-align: middle;
-  text-decoration: none;
-  font-size: inherit;
-  font-family: inherit;
-  &.now {
-    font-weight: 600;
-    color: $text;
-    text-transform: uppercase;
-    padding: 1.25em 2em;
-    background: $light-pink;
-    border: 2px solid $pink-border;
-    border-radius: 0.75em;
-    transform-style: preserve-3d;
-    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1);
-    &::before {
-      position: absolute;
-      content: "";
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: $dark-pink;
-      border-radius: inherit;
-      box-shadow: 0 0 0 2px $pink-border, 0 0.625em 0 0 $pink-shadow;
-      transform: translate3d(0, 0.75em, -1em);
-      transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
-    }
-    &:hover {
-      background: $pink;
-      transform: translate(0, 0.25em);
-      text-decoration: none;
-      &::before {
-        box-shadow: 0 0 0 2px $pink-border, 0 0.5em 0 0 $pink-shadow;
-        transform: translate3d(0, 0.5em, -1em);
-      }
-    }
-    &:active {
-      background: $pink;
-      transform: translate(0em, 0.75em);
-      &::before {
-        box-shadow: 0 0 0 2px $pink-border, 0 0 $pink-shadow;
-        transform: translate3d(0, 0, -1em);
-      }
-    }
-  }
-}
 
 // Start Button
 $bg: #f3f8fa;
 $white: #fff;
-$black: #282936;
+$green: #78c800;
 
 @mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65, 0, 0.076, 1)) {
   transition: $property $duration $ease;
@@ -108,7 +52,7 @@ $black: #282936;
       margin: 0;
       width: 3rem;
       height: 3rem;
-      background: $black;
+      background: $green;
       border-radius: 1.625rem;
       .icon {
         @include transition(all, 0.45s, cubic-bezier(0.65, 0, 0.076, 1));
@@ -146,7 +90,7 @@ $black: #282936;
       bottom: 0;
       padding: 0.75rem 0;
       margin: 0 0 0 1.85rem;
-      color: $black;
+      color: $green;
       font-weight: 700;
       line-height: 1.6;
       text-align: center;
@@ -177,16 +121,314 @@ $black: #282936;
   }
 }
 
+// Girl Avatar
+
+$background: #020916;
+$container: #5ab3b5; //#00ced1;
+$shirt: #78c800;
+$skin: #fed51d;
+$hair: #007cc3;
+
+.avatar-container {
+  transform: scale(1.2);
+  left: 15%;
+  top: 25%;
+}
+
+.container {
+  overflow: hidden;
+  width: 300px;
+  height: 300px;
+  border-radius: 100%;
+  transition: all 0.5s ease;
+}
+
+.avatar-body {
+  width: 60px;
+  height: 30px;
+  background: $shirt;
+  position: absolute;
+  left: calc(50% - 30px);
+  top: 75%;
+  z-index: 2;
+  &:after {
+    content: "";
+    position: absolute;
+    border-bottom: 20px solid darken(white, 10%);
+    border-left: 20x solid transparent;
+    border-right: 15px solid transparent;
+    height: 0;
+    width: 22px;
+    right: calc(50% - 10px);
+    top: -20px;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    border-bottom: 20px solid darken(white, 20%);
+    border-left: 15px solid transparent;
+    border-right: 0px solid transparent;
+    height: 0;
+    width: 25px;
+    right: 2px;
+    top: -20px;
+  }
+}
+.shirt-button {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 100%;
+  left: calc(50% - 5px);
+  top: 10px;
+}
+.heart-button {
+  position: absolute;
+  color: $shirt;
+  font-size: 20px;
+  top: -15px;
+  left: 35%;
+  z-index: -1;
+}
+.avatar-head {
+  position: absolute;
+  z-index: 3;
+  width: 90px;
+  height: 120px;
+  background: $skin;
+  border-radius: 40px;
+  left: calc(50% - 45px);
+  top: 70px;
+}
+.avatar-neck {
+  position: absolute;
+  width: 40px;
+  height: 50px;
+  background: $skin;
+  left: calc(50% - 20px);
+  top: 60%;
+  box-shadow: inset 0px 16px 0px 0px darken($skin, 10%);
+}
+.avatar-hair {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  background: $hair;
+  border-radius: 100%;
+  left: calc(50% - 65px);
+  top: 12%;
+  box-shadow: inset 10px -1px lighten($hair, 10%);
+  &:after {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 50px;
+    background: $hair;
+    border-radius: 0px 200px 0px 200px;
+    z-index: 4;
+    left: 40px;
+    top: 20px;
+    transform: rotate(10deg);
+  }
+}
+.avatar-ponytail {
+  width: 90px;
+  height: 120px;
+  position: absolute;
+  background: $hair;
+  left: 25%;
+  top: 40%;
+  border-radius: 200px;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 70px;
+    background: $hair;
+    border-radius: 0 0 300px 300px;
+    top: 60%;
+    right: -5%;
+  }
+}
+.avatar-face {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  left: calc(50% - 35px);
+  top: calc(50% - 50px);
+  z-index: 5;
+  .eyes {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 12px;
+    left: -7px;
+    &::before,
+    &::after {
+      display: inline-block;
+      content: "";
+      width: 15px;
+      height: 40px;
+      background: $background;
+      margin: 0 14px;
+      border-radius: 200px;
+      animation: blink 3s ease-in-out infinite;
+    }
+  }
+
+  .glasses {
+    position: relative;
+    width: 5px;
+    height: 2px;
+    background: #f89714;
+    left: 6.5%;
+    top: 25px;
+    .left {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: transparent;
+      border-radius: 100%;
+      border: 2px solid #f89714;
+      left: -52px;
+      top: -22px;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .right {
+      @extend .left;
+      left: 4px;
+    }
+  }
+}
+.shine {
+  position: absolute;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 100px;
+    background: white;
+    opacity: 0.3;
+    transform: rotate(30deg);
+    top: -25px;
+    left: 5px;
+  }
+  &:after {
+    @extend .shine:before;
+    width: 5px;
+    left: 30px;
+  }
+}
+.cheeks {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 55px;
+  left: -25px;
+  &::before,
+  &::after {
+    display: inline-block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: $skin;
+    margin: 0 20px;
+    opacity: 0.5;
+    transition: all 1s ease;
+    border-radius: 200px;
+  }
+}
+
+@keyframes blink {
+  0% {
+    transform: scaleY(1);
+  }
+  18% {
+    transform: scaleY(1);
+  }
+  20% {
+    transform: scaleY(0);
+  }
+  25% {
+    transform: scaleY(1);
+  }
+  38% {
+    transform: scaleY(1);
+  }
+  40% {
+    transform: scaleY(0);
+  }
+  45% {
+    transform: scaleY(1);
+  }
+  80% {
+    transform: scaleY(1);
+  }
+}
+
+// Cross X
+
+.x {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  &:hover {
+    &::before,
+    &::after {
+      background: $cross;
+    }
+  }
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: $cross;
+  }
+  &::before {
+    transform: (rotate(45deg));
+  }
+  &::after {
+    transform: (rotate(-45deg));
+  }
+}
+
+// Main CSS
 body {
-  font-family: "Comfortaa", cursive;
+  font-family: "DINRoundPro", cursive;
+  color: $text;
+}
+h1 {
+  font-weight: 800;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 25px;
 }
 .end {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  .main-score {
+    font-size: 10rem;
+  }
   &.stats {
     display: flex;
   }
-  &.sentences {
-    &.spanish {
+  .sentences {
+    .english {
       margin: 0;
+      font-weight: 600;
+      font-size: 1.9rem;
     }
   }
   &.scores p {
@@ -194,7 +436,11 @@ body {
   }
 }
 .create {
-  margin: 100px;
+  display: flex;
+  margin: 150px;
+}
+.create-text {
+  margin: 100px 0 0 50px;
 }
 .nav-logo {
   width: 20px;
@@ -215,14 +461,19 @@ form {
 #teacher-form {
   display: none;
 }
-.exercise {
+.practice-container {
   display: flex;
-  flex-flow: column;
   align-items: center;
-  justify-content: center;
-  margin: 100px;
-  font-size: 40px;
-  height: 40vh;
+  flex-flow: column;
+  width: 100vw;
+  height: 100vh;
+}
+.exercise {
+  width: 600px;
+  .spanish {
+    font-weight: 600;
+    font-size: 1.9rem;
+  }
 }
 .card {
   display: flex;
@@ -235,27 +486,67 @@ form {
 .incorrect {
   color: #a64138;
 }
-.spanish {
-  text-align: center;
-}
-.english {
+.answer-block {
   display: flex;
-  align-items: center;
-  border: 1px solid #c1d4d9;
-  height: 80px;
-  width: 90%;
-  margin-bottom: 70px;
-  padding: 10px;
+  align-items: flex-end;
+  height: 100px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e5e5e5;
+}
+.buttons-block {
+  position: absolute;
+  display: flex;
+}
+.button-words {
+  font-size: 20px;
+  position: relative;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 15px;
+  height: 40px;
+  width: fit-content;
+  margin: 0 10px 5px 0;
+  padding: 2px 10px 5px 10px;
+  box-shadow: 0 3px 0 0 #e5e5e5;
+  &:hover {
+    box-shadow: none;
+    top: 3px;
+    cursor: pointer;
+  }
+  &.answer {
+    box-shadow: none;
+    margin-right: 2px;
+  }
+  &.clicked {
+    background: $light-grey;
+    color: $light-grey;
+    box-shadow: none;
+    top: 3px;
+  }
   button {
     font-size: 20px;
     height: 40px;
     margin: 5px;
   }
 }
-.scoreBar {
-  height: 5px;
-  background-color: #a64138;
-  transition: width 0.8s linear;
+.scorebar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  width: 100vw;
+}
+.scorebar {
+  margin: 50px 10px;
+  width: 90%;
+  border-radius: 20px;
+  height: 17px;
+  background-color: $light-grey;
+  .time-bar {
+    background: $shirt;
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.8s linear;
+  }
 }
 .click-english {
   display: flex;
@@ -268,11 +559,6 @@ form {
   background-color: #c1d4d9;
   padding: 5px 10px;
   border-radius: 5px;
-}
-
-.block {
-  font-size: 20px;
-  display: flex;
 }
 
 @media (min-aspect-ratio: 16/9) {
