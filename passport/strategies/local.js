@@ -16,7 +16,9 @@ passport.use(
       console.log(foundUser);
 
       if (foundUser) {
-        checkedHashed(password, foundUser.password) ? done(null, foundUser) : done(null, false);
+        checkedHashed(password, foundUser.password)
+          ? done(null, foundUser)
+          : done(null, false);
       } else {
         done(null, false);
       }

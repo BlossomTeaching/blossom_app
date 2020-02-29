@@ -1,4 +1,4 @@
-{{>message}}
+{{>errors}}
 <form method="POST">
   <div class="form-group">
     <label>First name</label>
@@ -17,7 +17,13 @@
       <option value="Student">
     </datalist>
   </div>
-
+  {{#if messages}}
+  {{#each messages}}
+  <div class="alert alert-{{this.type}}">
+    <span style="margin-right:5px">{{this.message}}</span>
+  </div>
+  {{/each}}
+  {{/if}}
   <div id="teacher-form">
     <label>Please type your teacher email</label>
     <input type="email" class="form-control" name="teacheremail">

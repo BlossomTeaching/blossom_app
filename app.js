@@ -4,14 +4,13 @@ const mongoose = require("mongoose");
 const logger = require("morgan");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const flash = require("flash");
+const flash = require("connect-flash");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const favicon = require("serve-favicon");
+//const favicon = require("serve-favicon");
 const path = require("path");
 const _ = require("lodash");
 const dbConfig = require("./config/db.config.js");
-//const favicon = require("serve-favicon");
 const sassMiddleware = require("node-sass-middleware");
 
 const app = express();
@@ -32,6 +31,7 @@ app.use(
 );
 
 app.use(flash());
+
 require("./passport")(app);
 
 app.use(
@@ -48,7 +48,7 @@ hbs.registerPartials(__dirname + "/views/partials");
 app.use(express.static(path.join(__dirname, "public")));
 // app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
-app.use(async (req, res, next) => {
+app.use((req, res, next) => {
   res.locals = {
     teacher: false,
     student: false
@@ -62,11 +62,7 @@ app.use(async (req, res, next) => {
       req.user;
       res.locals.user = req.user;
     }
-  // const messageTypes = [
-  //   { flashName: "error", className: "danger" },
-  //   { flashName: "info", className: "info" }
-  // ];
-  // res.locals.messages = _.flatten(messageTypes.map(({ flashName, className }) => req.flash(flashName).map(message => ({ type: className, message }))));
+
   next();
 });
 

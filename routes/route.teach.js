@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const { isLoggedIn } = require("../lib/isLogged");
 
-router.get("/", async (req, res, next) => {
+router.get("/", isLoggedIn(), async (req, res, next) => {
   try {
     const students = await User.find({ roll: "Student" });
     res.render("teach/teacherpanel", { students });
@@ -12,7 +13,7 @@ router.get("/", async (req, res, next) => {
   console.log(students);
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", isLoggedIn(), async (req, res, next) => {
   const { id } = req.params;
   try {
     const students = await User.findById(id);
@@ -22,12 +23,4 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-/* router.get("/",  async (req, res) => {
-  const students = await User.getUsers({ filter: { roll: "Student" } });
- 
-  res.render("teach");
-  console.log(students);
-  return students;
-});
- */
 module.exports = router;

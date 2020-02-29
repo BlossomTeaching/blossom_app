@@ -6,7 +6,6 @@ const User = require("../models/User");
 const exerciseGenerator = require("../lib/exerciseGenerator");
 const prepareString = require("../lib/prepareString");
 const { findCompleted, avgScore, avgTotalScore, avgCurrentScore, bestScore } = require("../lib/scoreCalculator");
-const lessonsMaker = require("../lib/lessonsMaker");
 let exercise;
 let counter = 0;
 let end = false;
@@ -18,9 +17,14 @@ router.get("/create", async (req, res) => {
   const currentLesson = lessons[lessonNumber - 1];
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator("A2", [1, 3]).then(obj => {
+  exerciseGenerator("B2", [1, 3]).then(obj => {
     exercise = obj;
-    res.render("learn/create", { lessonNumber, totalLessons, exercise, layout: "play.hbs" });
+    res.render("learn/create", {
+      lessonNumber,
+      totalLessons,
+      exercise,
+      layout: "play.hbs"
+    });
   });
 });
 
@@ -32,7 +36,12 @@ router.get("/practice", async (req, res) => {
 
     const { buttons, answer } = prepareString(english);
 
-    res.render("learn/practice", { spanish, buttons, answer, layout: "play.hbs" });
+    res.render("learn/practice", {
+      spanish,
+      buttons,
+      answer,
+      layout: "play.hbs"
+    });
   } else {
     res.redirect("/learn/create");
   }
@@ -63,7 +72,14 @@ router.get("/end", async (req, res) => {
     const bestScores = await bestScore(exercise, req.user);
     console.log("COMPLETED @ END", completed, "BEST SCORE", bestScores);
 
-    res.render("learn/end", { bestScores, completed, avg, avgTotals, allCurrent, layout: "play.hbs" });
+    res.render("learn/end", {
+      bestScores,
+      completed,
+      avg,
+      avgTotals,
+      allCurrent,
+      layout: "play.hbs"
+    });
   } else {
     res.redirect("/learn/create");
   }
