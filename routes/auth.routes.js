@@ -5,11 +5,11 @@ const passport = require("passport");
 const { isLoggedOut, isLoggedIn } = require("../lib/isLogged");
 const { hashPassword } = require("../lib/hashing");
 
-router.get("/signup", (req, res) => {
+router.get("/signup", isLoggedOut(), (req, res) => {
   res.render("auth/signup"), { signup: true };
 });
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", isLoggedOut(), async (req, res) => {
   const { firstname, lastname, roll, email, password, teacheremail } = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
@@ -34,7 +34,7 @@ router.get("/login", isLoggedOut(), (req, res) => {
   res.render("auth/login", { login: true });
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/login", isLoggedOut(), (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return next(err);
@@ -56,7 +56,7 @@ router.get("/logout", isLoggedIn(), (req, res, next) => {
   res.redirect("/");
 });
 
-router.post("/login/linkedin", isLoggedOut(), (req, res) => {
+/* router.post("/login/linkedin", isLoggedOut(), (req, res) => {
   passport.authenticate("linkedin", {
     successRedirect: "/",
     failureRedirect: "/auth/login"
@@ -92,6 +92,6 @@ router.post("/login/google", isLoggedOut(), (req, res) => {
     successRedirect: "/",
     failureRedirect: "/auth/login"
   });
-});
+}); */
 
 module.exports = router;
