@@ -22,12 +22,4 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-/* router.get("/",  async (req, res) => {
-  const students = await User.getUsers({ filter: { roll: "Student" } });
- 
-  res.render("teach");
-  console.log(students);
-  return students;
-});
- */
 module.exports = router;
