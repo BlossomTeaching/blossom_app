@@ -5,11 +5,11 @@ const passport = require("passport");
 const { isLoggedOut, isLoggedIn } = require("../lib/isLogged");
 const { hashPassword } = require("../lib/hashing");
 
-router.get("/signup", (req, res) => {
-  res.render("auth/signup"), { signup: true };
+router.get("/signup", isLoggedOut(), (req, res) => {
+  res.render("auth/signup");
 });
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", isLoggedOut(), async (req, res) => {
   const { firstname, lastname, roll, email, password, teacheremail } = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
@@ -21,42 +21,32 @@ router.post("/signup", async (req, res) => {
       teacheremail,
       password: hashPassword(password)
     });
-    req.login(newUser, () => {
-      return res.redirect("/");
-    });
+    return res.redirect("/");
   } else {
-    req.flash("error", "User already exists");
-    return res.redirect("/auth/signup");
+    req.flash("error", "Username already exits");
+    return res.render("auth/signup", { messages: req.flash("error") });
   }
 });
 
 router.get("/login", isLoggedOut(), (req, res) => {
-  res.render("auth/login", { login: true });
+  res.render("auth/login");
 });
 
-router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.redirect("/auth/login");
-    }
-    req.logIn(user, err => {
-      if (err) {
-        return next(err);
-      }
-      return res.redirect("/");
-    });
-  })(req, res, next);
-});
+router.post(
+  "/login",
+  isLoggedOut(),
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/auth/login"
+  })
+);
 
 router.get("/logout", isLoggedIn(), (req, res, next) => {
   req.logout();
   res.redirect("/");
 });
 
-router.post("/login/linkedin", isLoggedOut(), (req, res) => {
+/* router.post("/login/linkedin", isLoggedOut(), (req, res) => {
   passport.authenticate("linkedin", {
     successRedirect: "/",
     failureRedirect: "/auth/login"
@@ -92,6 +82,6 @@ router.post("/login/google", isLoggedOut(), (req, res) => {
     successRedirect: "/",
     failureRedirect: "/auth/login"
   });
-});
+}); */
 
 module.exports = router;
