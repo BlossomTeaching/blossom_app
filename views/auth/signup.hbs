@@ -8,14 +8,29 @@
     <label>Last name</label>
     <input type="text" class="form-control" name="lastname">
   </div>
-  <div class="form-group">
-    <label>Roll</label>
-    <input id="roll-input" list="roll" name="roll">
+  <div class="signup-dropdowns">
+    <div class="roll">
+      <label>Roll</label>
+      <input id="roll-input" list="roll" name="roll">
 
-    <datalist id="roll">
-      <option value="Teacher">
-      <option value="Student">
-    </datalist>
+      <datalist id="roll">
+        <option value="Teacher">
+        <option value="Student">
+      </datalist>
+    </div>
+    <div class="level">
+      <label>Level</label>
+      <input id="level-input" list="level" name="level">
+
+      <datalist id="level">
+        <option value="A1">
+        <option value="A2">
+        <option value="B1">
+        <option value="B2">
+        <option value="C1">
+        <option value="C2">
+      </datalist>
+    </div>
   </div>
   {{#if messages}}
   {{#each messages}}
@@ -24,14 +39,14 @@
   </div>
   {{/each}}
   {{/if}}
-  <div id="teacher-form">
+  <div class="teacher-referral" id="teacher-form">
     <label>If you were referred by a teacher, enter their email address here</label>
-    <input type="email" class="form-control" name="teacheremail">
+    <input type="email" class="form-control" name="teacheremail" placeholder="Teacher's email adress">
   </div>
 
   <div class="form-group">
-    <label>Your email address</label>
-    <input type="email" class="form-control" name="email">
+    <label>Email address</label>
+    <input type="email" class="form-control" name="email" placeholder="Student's email address">
     <small class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">

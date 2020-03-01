@@ -420,6 +420,20 @@ h3 {
   font-weight: 700;
   margin-bottom: 25px;
 }
+.signup-dropdowns {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+  .roll {
+    width: 50%;
+    input {
+      width: 80%;
+    }
+  }
+}
+.teacher-referral {
+  margin-bottom: 30px;
+}
 .end {
   display: flex;
   flex-flow: column;

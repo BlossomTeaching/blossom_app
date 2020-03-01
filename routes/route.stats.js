@@ -8,13 +8,15 @@ const exerciseGenerator = require("../lib/exerciseGenerator");
 const { avgCurrentScore } = require("../lib/scoreCalculator");
 
 router.get("/", async (req, res) => {
-  const lessons = await lessonsMaker(req.user.level);
+  const lessons = req.user.lessons;
   const userLevel = req.user.level;
   const lessonNumber = req.user.lessonNumber;
   const totalLessons = lessons.length;
   const allLessonAvg = [];
-  for (let i = 0; i < req.user.lessonNumber; i++) {
+  for (let i = 0; i < lessonNumber; i++) {
     const exercise = await exerciseGenerator(userLevel, lessons[i]);
+    console.log("STATS EXERCISE LOOP", exercise);
+
     const lessonAvg = await avgCurrentScore(exercise, req.user);
     allLessonAvg.push(lessonAvg);
   }

@@ -15,7 +15,9 @@ router.get("/create", async (req, res) => {
   const lessonNumber = req.user.lessonNumber;
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator(userLevel, lessons[lessonNumber]).then(obj => {
+  console.log("LESSON NUMBER CREATE", lessonNumber);
+
+  exerciseGenerator(userLevel, lessons[lessonNumber - 1]).then(obj => {
     exercise = obj;
     res.render("learn/create", {
       lessonNumber,
@@ -48,16 +50,15 @@ router.get("/practice", async (req, res) => {
 router.post("/practice", async (req, res, next) => {
   const { mistakes, score } = req.body;
   console.log("MISTAKES POST", mistakes);
+  counter++;
 
   await Mistake.findOneAndUpdate(
     {
-      $and: [{ translation: exercise[counter]._id }, { user: req.user._id }]
+      $and: [{ translation: exercise[counter - 1]._id }, { user: req.user._id }]
     },
     { $push: { mistakes }, $push: { score } },
     { new: true, upsert: true }
   );
-
-  counter++;
 });
 
 router.get("/end", async (req, res) => {

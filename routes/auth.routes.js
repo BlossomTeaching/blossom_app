@@ -14,16 +14,20 @@ router.post("/signup", isLoggedOut(), async (req, res) => {
   const { firstname, lastname, roll, level, email, password, teacheremail } = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
+    const lessons = await lessonsMaker(level);
     const newUser = await User.create({
       firstname,
       lastname,
       email,
       roll,
       level,
+      lessons: lessons,
+      lessonNumber: 1,
       teacheremail,
       password: hashPassword(password)
     });
-    lessonsMaker(level);
+    console.log("NEW USER LESSONS", newUser.lessons);
+
     req.login(newUser, () => {
       return res.redirect("/");
     });
