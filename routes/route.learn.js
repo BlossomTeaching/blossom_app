@@ -14,7 +14,7 @@ router.get("/create", async (req, res) => {
   const lessonNumber = req.user.lessonNumber;
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator("B2", [1, 3]).then(obj => {
+  exerciseGenerator("B2", lessons[lessonNumber]).then(obj => {
     exercise = obj;
     res.render("learn/create", {
       lessonNumber,

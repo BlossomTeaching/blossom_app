@@ -4,6 +4,7 @@ const User = require("../models/User");
 const passport = require("passport");
 const { isLoggedOut, isLoggedIn } = require("../lib/isLogged");
 const { hashPassword } = require("../lib/hashing");
+const lessonsMaker = require("../lib/lessonsMaker");
 
 router.get("/signup", isLoggedOut(), (req, res) => {
   res.render("auth/signup");
@@ -21,6 +22,7 @@ router.post("/signup", isLoggedOut(), async (req, res) => {
       teacheremail,
       password: hashPassword(password)
     });
+    lessonsMaker("A1");
     return res.redirect("/");
   } else {
     req.flash("error", "Username already exits");
