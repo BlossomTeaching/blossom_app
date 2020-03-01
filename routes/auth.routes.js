@@ -29,7 +29,11 @@ router.post("/signup", isLoggedOut(), async (req, res) => {
     console.log("NEW USER LESSONS", newUser.lessons);
 
     req.login(newUser, () => {
-      return res.redirect("/");
+      if (newUser.roll === "Student") {
+        return res.redirect("/stats");
+      } else {
+        return res.redirect("/classes");
+      }
     });
   } else {
     req.flash("error", "Username already exits");

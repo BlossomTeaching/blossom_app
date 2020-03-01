@@ -69,6 +69,14 @@ router.get("/end", async (req, res) => {
     const avgTotals = completed.map(mistake => avgScore(mistake.score));
     const allCurrent = completed.map(mistake => mistake.score[mistake.score.length - 1]);
     const bestScores = await bestScore(exercise, req.user);
+    if (avg > 75) {
+      await User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $inc: { lessonNumber: 1 }
+        }
+      );
+    }
     console.log("COMPLETED @ END", completed, "BEST SCORE", bestScores);
 
     res.render("learn/end", {
