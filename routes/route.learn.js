@@ -11,10 +11,11 @@ let counter = 0;
 
 router.get("/create", async (req, res) => {
   const lessons = req.user.lessons;
+  const userLevel = req.user.level;
   const lessonNumber = req.user.lessonNumber;
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator("B2", lessons[lessonNumber]).then(obj => {
+  exerciseGenerator(userLevel, lessons[lessonNumber]).then(obj => {
     exercise = obj;
     res.render("learn/create", {
       lessonNumber,

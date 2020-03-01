@@ -11,7 +11,7 @@ router.get("/signup", isLoggedOut(), (req, res) => {
 });
 
 router.post("/signup", isLoggedOut(), async (req, res) => {
-  const { firstname, lastname, roll, email, password, teacheremail } = req.body;
+  const { firstname, lastname, roll, level, email, password, teacheremail } = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
     const newUser = await User.create({
@@ -19,11 +19,14 @@ router.post("/signup", isLoggedOut(), async (req, res) => {
       lastname,
       email,
       roll,
+      level,
       teacheremail,
       password: hashPassword(password)
     });
-    lessonsMaker("A1");
-    return res.redirect("/");
+    lessonsMaker(level);
+    req.login(newUser, () => {
+      return res.redirect("/");
+    });
   } else {
     req.flash("error", "Username already exits");
     return res.render("auth/signup", { messages: req.flash("error") });
