@@ -30,7 +30,7 @@ router.post("/signup", isLoggedOut(), async (req, res) => {
 
     req.login(newUser, () => {
       if (newUser.roll === "Student") {
-        return res.redirect("/stats");
+        return res.redirect("/profile");
       } else {
         return res.redirect("/classes");
       }
@@ -58,7 +58,7 @@ router.post("/login", (req, res, next) => {
       if (err) {
         return next(err);
       }
-      return res.redirect("/");
+      return res.redirect("/profile");
     });
   })(req, res, next);
 });

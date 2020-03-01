@@ -50,15 +50,15 @@ router.get("/practice", async (req, res) => {
 router.post("/practice", async (req, res, next) => {
   const { mistakes, score } = req.body;
   console.log("MISTAKES POST", mistakes);
-  counter++;
 
   await Mistake.findOneAndUpdate(
     {
-      $and: [{ translation: exercise[counter - 1]._id }, { user: req.user._id }]
+      $and: [{ translation: exercise[counter]._id }, { user: req.user._id }]
     },
     { $push: { mistakes }, $push: { score } },
     { new: true, upsert: true }
   );
+  counter++;
 });
 
 router.get("/end", async (req, res) => {
