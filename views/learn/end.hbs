@@ -9,6 +9,11 @@
         <p class="spanish">{{this.translation.spanish}}</p>
       {{/each}}
     </div>
+    <a href="/profile">Home</a>
+    {{#if next}}
+    <a href="/learn/create">Next Lesson</a>
+    {{/if}}
+    <a href="/learn/repeat/{{lessonNumber}}">Repeat Lesson</a>
   </div>
   <div><canvas id="sentences" data-sentence="{{completed}}"></canvas></div>
 </div>

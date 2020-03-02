@@ -69,6 +69,8 @@ router.get("/end", async (req, res) => {
     const avgTotals = completed.map(mistake => avgScore(mistake.score));
     const allCurrent = completed.map(mistake => mistake.score[mistake.score.length - 1]);
     const bestScores = await bestScore(exercise, req.user);
+    const lessonNumber = req.user.lessonNumber;
+    let next = false;
     if (avg > 75) {
       await User.findOneAndUpdate(
         { _id: req.user._id },
@@ -76,6 +78,7 @@ router.get("/end", async (req, res) => {
           $inc: { lessonNumber: 1 }
         }
       );
+      next = true;
     }
     console.log("COMPLETED @ END", completed, "BEST SCORE", bestScores);
 
@@ -85,6 +88,8 @@ router.get("/end", async (req, res) => {
       avg,
       avgTotals,
       allCurrent,
+      next,
+      lessonNumber,
       layout: "play.hbs"
     });
   } else {
@@ -93,14 +98,24 @@ router.get("/end", async (req, res) => {
   console.log("AVG END", avg);
 });
 
-router.get("/phrase/:id", async (req, res) => {
-  const { id } = req.params;
-  const obj = await Translation.findOne({ _id: id });
-  const { english, spanish } = obj;
-  const { buttons, answer } = prepareString(english);
-  console.log("ANSWER", answer);
+router.get("/repeat/:lesson", async (req, res) => {
+  const { lesson } = req.params;
+  const lessons = req.user.lessons;
+  const userLevel = req.user.level;
+  const lessonNumber = lesson;
+  const totalLessons = lessons.length;
+  counter = 0;
+  console.log("LESSON NUMBER CREATE", lessonNumber);
 
-  res.render("learn/practice", { spanish, buttons, answer });
+  exerciseGenerator(userLevel, lessons[lessonNumber - 1]).then(obj => {
+    exercise = obj;
+    res.render("learn/create", {
+      lessonNumber,
+      totalLessons,
+      exercise,
+      layout: "play.hbs"
+    });
+  });
 });
 
 module.exports = router;
