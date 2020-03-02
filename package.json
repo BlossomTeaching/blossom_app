@@ -1,0 +1,48 @@
+{
+  "name": "blossom_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon -e js,hbs ./bin/www",
+    "debug": "nodemon --inspect ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlossomTeaching/blossom_app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlossomTeaching/blossom_app/issues"
+  },
+  "homepage": "https://github.com/BlossomTeaching/blossom_app#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "flash": "^1.1.0",
+    "hbs": "^4.1.0",
+    "linkedin": "0.0.2",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.1",
+    "morgan": "^1.9.1",
+    "node-linkedin": "^0.5.6",
+    "node-sass-middleware": "^0.11.0",
+    "nodemon": "^2.0.2",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0",
+    "passport-linkedin": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "sass": "^1.25.0",
+    "serve-favicon": "^2.5.0"
+  }
+}

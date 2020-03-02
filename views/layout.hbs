@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+
+<body>
+    {{#if teacher}}
+    {{> teacherNav}}
+    {{else if student}}
+    {{> studentNav}}
+    {{else}}
+    {{> nav}}
+    {{/if}}
+    <div>
+        {{{body}}}
+    </div>
+    <script scr="../passport/strategies/fb_client.js"></script>
+    {{>footer}}
+</body>
+
+</html>
