@@ -53,6 +53,10 @@
 
 Learning english sometimes it could a nightmare that's why we have decide to create an interactive platform for students and Teachers in order to learn and follow-up the improvement of students.
 
+ <a href="https://github.com/BlossomTeaching/blossom_app">
+    <img src="/public/images/blossom-demo.png" alt="Logo" width="80" height="80">
+  </a>
+
 ### Built With
 
 The following repos were used in order to build Blossom:
@@ -62,13 +66,6 @@ The following repos were used in order to build Blossom:
 - [Javascritp](https://developer.mozilla.org/es/docs/Web/JavaScript)
 - [Sass](https://sass-lang.com/)
 - [NPM](https://www.npmjs.com/)
-
-<!-- GETTING STARTED -->
-
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
