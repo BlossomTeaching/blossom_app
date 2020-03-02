@@ -590,6 +590,16 @@ li:hover ~ li p {
   animation: wave-animation 0.3s infinite;
 }
 
+.mid-home {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.bird {
+  width: 45%;
+}
+
 footer {
   display: flex;
   height: 10vh;
