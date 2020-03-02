@@ -8,16 +8,16 @@ const prepareString = require("../lib/prepareString");
 const { findCompleted, avgScore, avgTotalScore, avgCurrentScore, bestScore } = require("../lib/scoreCalculator");
 let exercise;
 let counter = 0;
-let end = false;
 
 router.get("/create", async (req, res) => {
-  const userLevel = req.user.level;
   const lessons = req.user.lessons;
+  const userLevel = req.user.level;
   const lessonNumber = req.user.lessonNumber;
-  const currentLesson = lessons[lessonNumber - 1];
   const totalLessons = lessons.length;
   counter = 0;
-  exerciseGenerator("B2", [1, 3]).then(obj => {
+  console.log("LESSON NUMBER CREATE", lessonNumber);
+
+  exerciseGenerator(userLevel, lessons[lessonNumber - 1]).then(obj => {
     exercise = obj;
     res.render("learn/create", {
       lessonNumber,
@@ -58,7 +58,6 @@ router.post("/practice", async (req, res, next) => {
     { $push: { mistakes }, $push: { score } },
     { new: true, upsert: true }
   );
-
   counter++;
 });
 
@@ -70,6 +69,17 @@ router.get("/end", async (req, res) => {
     const avgTotals = completed.map(mistake => avgScore(mistake.score));
     const allCurrent = completed.map(mistake => mistake.score[mistake.score.length - 1]);
     const bestScores = await bestScore(exercise, req.user);
+    const lessonNumber = req.user.lessonNumber;
+    let next = false;
+    if (avg > 75) {
+      await User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $inc: { lessonNumber: 1 }
+        }
+      );
+      next = true;
+    }
     console.log("COMPLETED @ END", completed, "BEST SCORE", bestScores);
 
     res.render("learn/end", {
@@ -78,6 +88,8 @@ router.get("/end", async (req, res) => {
       avg,
       avgTotals,
       allCurrent,
+      next,
+      lessonNumber,
       layout: "play.hbs"
     });
   } else {
@@ -86,14 +98,24 @@ router.get("/end", async (req, res) => {
   console.log("AVG END", avg);
 });
 
-router.get("/phrase/:id", async (req, res) => {
-  const { id } = req.params;
-  const obj = await Translation.findOne({ _id: id });
-  const { english, spanish } = obj;
-  const { buttons, answer } = prepareString(english);
-  console.log("ANSWER", answer);
+router.get("/repeat/:lesson", async (req, res) => {
+  const { lesson } = req.params;
+  const lessons = req.user.lessons;
+  const userLevel = req.user.level;
+  const lessonNumber = lesson;
+  const totalLessons = lessons.length;
+  counter = 0;
+  console.log("LESSON NUMBER CREATE", lessonNumber);
 
-  res.render("learn/practice", { spanish, buttons, answer });
+  exerciseGenerator(userLevel, lessons[lessonNumber - 1]).then(obj => {
+    exercise = obj;
+    res.render("learn/create", {
+      lessonNumber,
+      totalLessons,
+      exercise,
+      layout: "play.hbs"
+    });
+  });
 });
 
 module.exports = router;

@@ -1,5 +1,5 @@
 <div class="end">
-  <a href="/">Home</a>
+  <a href="/profile">Home</a>
   <h1 class="main-score">{{avg}}</h1>
 
   <div class="end stats">
@@ -9,5 +9,11 @@
         <p class="spanish">{{this.translation.spanish}}</p>
       {{/each}}
     </div>
+    <a href="/profile">Home</a>
+    {{#if next}}
+    <a href="/learn/create">Next Lesson</a>
+    {{/if}}
+    <a href="/learn/repeat/{{lessonNumber}}">Repeat Lesson</a>
   </div>
+  <div><canvas id="sentences" data-sentence="{{completed}}"></canvas></div>
 </div>

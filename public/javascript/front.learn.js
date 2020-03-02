@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
       timer--;
       score = scoreCalculator(answer.length, wordCount, mistakes.length, time);
       console.log("SCORE", score);
-      console.log(timeBar);
       timeBar.setAttribute("style", `width: ${time}%`);
       if (time < 0) {
         clearInterval(interval);
