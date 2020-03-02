@@ -47,7 +47,9 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+ <a href="https://github.com/BlossomTeaching/blossom_app">
+    <img src="/public/images/blossom-logo.png" alt="Logo" width="80" height="80">
+  </a>
 
 Learning english sometimes it could a nightmare that's why we have decide to create an interactive platform for students and Teachers in order to learn and follow-up the improvement of students.
 
