@@ -75,7 +75,7 @@ You need to install all npm dependencies
 - npm
 
 ```sh
-npm install npm@latest -g
+npm install
 ```
 
 ### Installation
@@ -92,19 +92,11 @@ git clone https://github.com/BlossomTeaching/blossom_app
 npm install
 ```
 
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
 <!-- ROADMAP -->
 
 ## Roadmap
 
-See the [open issues]https://github.com/BlossomTeaching/blossom_app/issues) for a list of proposed features (and known issues).
+See the [openissues]https://github.com/BlossomTeaching/blossom_app/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -128,7 +120,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Mario Carreras and Roman Mendez
 
 Project Link: [https://github.com/BlossomTeaching/blossom_app](https://github.com/BlossomTeaching/blossom_app)
 
