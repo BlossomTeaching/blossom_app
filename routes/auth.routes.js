@@ -4,24 +4,37 @@ const User = require("../models/User");
 const passport = require("passport");
 const { isLoggedOut, isLoggedIn } = require("../lib/isLogged");
 const { hashPassword } = require("../lib/hashing");
+const lessonsMaker = require("../lib/lessonsMaker");
 
 router.get("/signup", isLoggedOut(), (req, res) => {
   res.render("auth/signup");
 });
 
 router.post("/signup", isLoggedOut(), async (req, res) => {
-  const { firstname, lastname, roll, email, password, teacheremail } = req.body;
+  const { firstname, lastname, roll, level, email, password, teacheremail } = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
+    const lessons = await lessonsMaker(level);
     const newUser = await User.create({
       firstname,
       lastname,
       email,
       roll,
+      level,
+      lessons: lessons,
+      lessonNumber: 1,
       teacheremail,
       password: hashPassword(password)
     });
-    return res.redirect("/");
+    console.log("NEW USER LESSONS", newUser.lessons);
+
+    req.login(newUser, () => {
+      if (newUser.roll === "Student") {
+        return res.redirect("/profile");
+      } else {
+        return res.redirect("/classes");
+      }
+    });
   } else {
     req.flash("error", "Username already exits");
     return res.render("auth/signup", { messages: req.flash("error") });
@@ -32,56 +45,27 @@ router.get("/login", isLoggedOut(), (req, res) => {
   res.render("auth/login");
 });
 
-router.post(
-  "/login",
-  isLoggedOut(),
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/auth/login"
-  })
-);
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      req.flash("error", "Invalid username or password");
+      return res.redirect("/auth/login");
+    }
+    req.logIn(user, err => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect("/profile");
+    });
+  })(req, res, next);
+});
 
 router.get("/logout", isLoggedIn(), (req, res, next) => {
   req.logout();
   res.redirect("/");
 });
-
-/* router.post("/login/linkedin", isLoggedOut(), (req, res) => {
-  passport.authenticate("linkedin", {
-    successRedirect: "/",
-    failureRedirect: "/auth/login"
-  });
-});
-
-router.post("/login/facebook", isLoggedOut(), (req, res) => {
-  passport.authenticate("facebook", {
-    successRedirect: "/",
-    failureRedirect: "/auth/login"
-  });
-});
-
-//Google Passport Strategy
-
-router.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: ["https://www.googleapis.com/auth/plus.login"]
-  })
-);
-
-router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
-  function(req, res) {
-    res.redirect("/");
-  }
-);
-
-router.post("/login/google", isLoggedOut(), (req, res) => {
-  passport.authenticate("google", {
-    successRedirect: "/",
-    failureRedirect: "/auth/login"
-  });
-}); */
 
 module.exports = router;

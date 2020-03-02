@@ -1,13 +1,19 @@
 <div class="end">
-  <a href="/">Home</a>
+  <a href="/profile">Home</a>
   <h1 class="main-score">{{avg}}</h1>
-
-  <div class="end stats">
-    <div class="sentences">
-      {{#each completed}}
-        <p class="english">{{this.translation.english}}</p>
-        <p class="spanish">{{this.translation.spanish}}</p>
-      {{/each}}
-    </div>
+  
+  <div class="sentence-chart"><canvas id="sentence-chart"></canvas></div>
+  <div id="completed" data-completed="{{completed.length}}">
+    {{#each completed}}
+    <div class="hidden" id="sentence-data{{@index}}" data-english="{{this.translation.english}}" data-spanish="{{this.translation.spanish}}" data-score="{{this.score}}"></div>
+    {{/each}}
   </div>
 </div>
+    <a href="/profile">Home</a>
+    {{#if next}}
+    <a href="/learn/create">Next Lesson</a>
+    {{/if}}
+    <a href="/learn/repeat/{{lessonNumber}}">Repeat Lesson</a>
+  </div>
+</div>
+<script src="/javascript/front.end.js"></script>

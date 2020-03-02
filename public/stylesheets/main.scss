@@ -9,6 +9,8 @@
 $text: #3c3c3c;
 $light-grey: #e5e5e5;
 $cross: #bababa;
+$footer: #a64138;
+$footer-text: #011c26;
 
 * {
   box-sizing: border-box;
@@ -26,11 +28,7 @@ $bg: #f3f8fa;
 $white: #fff;
 $green: #78c800;
 
-@mixin transition(
-  $property: all,
-  $duration: 0.45s,
-  $ease: cubic-bezier(0.65, 0, 0.076, 1)
-) {
+@mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65, 0, 0.076, 1)) {
   transition: $property $duration $ease;
 }
 
@@ -405,6 +403,16 @@ $hair: #007cc3;
   }
 }
 
+// Charts
+.level-chart {
+  width: 300px;
+  height: 300px;
+}
+.sentence-chart {
+  width: 100%;
+  height: fit-content;
+}
+
 // Main CSS
 body {
   font-family: "DINRoundPro", cursive;
@@ -417,6 +425,20 @@ h3 {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 25px;
+}
+.signup-dropdowns {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+  .roll {
+    width: 50%;
+    input {
+      width: 80%;
+    }
+  }
+}
+.teacher-referral {
+  margin-bottom: 30px;
 }
 .end {
   display: flex;
@@ -464,6 +486,15 @@ form {
 
 #teacher-form {
   display: none;
+}
+.start-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: 50px;
+  p {
+    width: 400px;
+  }
 }
 .practice-container {
   display: flex;
@@ -559,9 +590,13 @@ form {
   }
 }
 
-a {
-  text-decoration: none;
-  box-shadow: inset 0 -1px 0 hsla(0, 0%, 100%, 0.4);
+footer {
+  a {
+    text-decoration: none;
+    box-shadow: inset 0 -1px 0 hsla(0, 0%, 100%, 0.4);
+    color: $footer-text;
+    font-weight: bold;
+  }
 }
 
 a:hover {
@@ -604,7 +639,7 @@ footer {
   display: flex;
   height: 10vh;
   width: 100vw;
-  background-color: #f8f9fa;
+  background-color: $footer;
   line-height: 1.3;
   align-items: center;
   justify-content: center;

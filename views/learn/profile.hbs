@@ -1,0 +1,14 @@
+<div class="start-container">
+  <h1>Level {{userLevel}}</h1>
+  <h3>Avg Score {{allLessonAvg}}</h3>
+  <div class="level-chart"><canvas id="level-chart" data-level="{{lessonNumber}},{{totalLessons}}"></canvas></div>
+  <script src="/javascript/front.profile.js"></script>
+  <div id="container">
+      <button class="play learn-more">
+        <span class="circle" aria-hidden="true">
+          <span class="icon arrow"></span>
+        </span>
+        <a href="/learn/create" class="button-text">Start Lesson {{lessonNumber}}</a>
+      </button>
+    </div>
+</div>
