@@ -9,6 +9,8 @@
 $text: #3c3c3c;
 $light-grey: #e5e5e5;
 $cross: #bababa;
+$footer: #a64138;
+$footer-text: #011c26;
 
 * {
   box-sizing: border-box;
@@ -588,9 +590,13 @@ form {
   }
 }
 
-a {
-  text-decoration: none;
-  box-shadow: inset 0 -1px 0 hsla(0, 0%, 100%, 0.4);
+footer {
+  a {
+    text-decoration: none;
+    box-shadow: inset 0 -1px 0 hsla(0, 0%, 100%, 0.4);
+    color: $footer-text;
+    font-weight: bold;
+  }
 }
 
 a:hover {
@@ -606,6 +612,10 @@ ul {
   margin: auto;
 }
 
+.hand {
+  list-style-type: none;
+}
+
 li:last-child {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
@@ -615,11 +625,21 @@ li:hover ~ li p {
   animation: wave-animation 0.3s infinite;
 }
 
+.mid-home {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.bird {
+  width: 45%;
+}
+
 footer {
   display: flex;
   height: 10vh;
   width: 100vw;
-  background-color: #f8f9fa;
+  background-color: $footer;
   line-height: 1.3;
   align-items: center;
   justify-content: center;
@@ -655,13 +675,6 @@ footer {
   #videoBG {
     width: 100%;
     height: auto;
-  }
-}
-
-@media (max-aspect-ratio: 16/9) {
-  #videoBG {
-    width: auto;
-    height: 100%;
   }
 }
 

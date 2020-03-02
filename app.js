@@ -12,10 +12,10 @@ const path = require("path");
 const _ = require("lodash");
 const dbConfig = require("./config/db.config.js");
 const sassMiddleware = require("node-sass-middleware");
-const { setLog } = require("@faable/flogg");
-const chart = require("chart.js");
+//const { setLog } = require("@faable/flogg");
+//const chart = require("chart.js");
 
-setLog("blossom");
+//setLog("blossom");
 
 const app = express();
 
