@@ -54,7 +54,7 @@
 Learning english sometimes it could a nightmare that's why we have decide to create an interactive platform for students and Teachers in order to learn and follow-up the improvement of students.
 
  <a href="https://github.com/BlossomTeaching/blossom_app">
-    <img src="/public/images/blossom-demo.png" alt="Logo" width="80" height="80">
+    <img src="/public/images/blossom-demo.png" alt="Logo" width="800" height="300">
   </a>
 
 ### Built With
