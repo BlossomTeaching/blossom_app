@@ -1,7 +1,5 @@
 const ctxLevel = document.getElementById("level-chart").getContext("2d");
-const ctxLessons = document.getElementById("lessons-chart").getContext("2d");
 const levelData = document.getElementById("level-chart").dataset.level.split(",");
-const lessonData = document.getElementById("lessons-chart").dataset.lesson.split(",");
 
 console.log("LEVEL DATA", levelData);
 
