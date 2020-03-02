@@ -405,6 +405,12 @@ $hair: #007cc3;
   }
 }
 
+// Charts
+.level-chart {
+  width: 300px;
+  height: 300px;
+}
+
 // Main CSS
 body {
   font-family: "DINRoundPro", cursive;
@@ -417,6 +423,20 @@ h3 {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 25px;
+}
+.signup-dropdowns {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+  .roll {
+    width: 50%;
+    input {
+      width: 80%;
+    }
+  }
+}
+.teacher-referral {
+  margin-bottom: 30px;
 }
 .end {
   display: flex;

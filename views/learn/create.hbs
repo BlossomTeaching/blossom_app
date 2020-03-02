@@ -26,7 +26,7 @@
   </div>
   <div class="create-text">
     <h3>Challenge {{lessonNumber}} of {{totalLessons}}</h3>
-    <p>Finish all {{exercise.length}} sentences with a score of 500 points or higher to move on to the next exercise</p>
+    <p>Finish all {{exercise.length}} sentences with an average score of 75 or higher to move on to the next exercise</p>
     <div id="container">
       <button class="play learn-more">
         <span class="circle" aria-hidden="true">
@@ -37,3 +37,5 @@
     </div>
   </div>
 </div>
+<div class="hidden" id="exercise-data" data-exercise="{{exercise}}"></div>
+<script src="/javascript/front.create.js"></script>
