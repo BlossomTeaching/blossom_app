@@ -1,15 +1,7 @@
 <div class="end">
   <a href="/profile">Home</a>
   <h1 class="main-score">{{avg}}</h1>
-
-  <div class="end stats">
-    <div class="sentences">
-      {{#each completed}}
-        <p class="english">{{this.translation.english}}</p>
-        <p class="spanish">{{this.translation.spanish}}</p>
-      {{/each}}
-    </div>
-  </div>
+  
   <div class="sentence-chart"><canvas id="sentence-chart"></canvas></div>
   <div id="completed" data-completed="{{completed.length}}">
     {{#each completed}}

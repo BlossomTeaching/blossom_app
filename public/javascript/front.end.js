@@ -25,7 +25,7 @@ const sentencesChart = new Chart(ctxSentences, {
     datasets: [
       {
         data: scoreChart,
-        backgroundColor: ["#78c800", "#78c800"],
+        backgroundColor: "#78c800",
         borderWidth: 0,
         barPercentage: 0.5,
         categoryPercentage: 0.5
