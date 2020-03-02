@@ -28,11 +28,7 @@ $bg: #f3f8fa;
 $white: #fff;
 $green: #78c800;
 
-@mixin transition(
-  $property: all,
-  $duration: 0.45s,
-  $ease: cubic-bezier(0.65, 0, 0.076, 1)
-) {
+@mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65, 0, 0.076, 1)) {
   transition: $property $duration $ease;
 }
 
@@ -412,6 +408,10 @@ $hair: #007cc3;
   width: 300px;
   height: 300px;
 }
+.sentence-chart {
+  width: 100%;
+  height: fit-content;
+}
 
 // Main CSS
 body {
@@ -486,6 +486,15 @@ form {
 
 #teacher-form {
   display: none;
+}
+.start-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: 50px;
+  p {
+    width: 400px;
+  }
 }
 .practice-container {
   display: flex;
