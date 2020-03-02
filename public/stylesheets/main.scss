@@ -635,19 +635,6 @@ footer {
   align-items: center;
   justify-content: center;
 }
-.video-container {
-  position: relative;
-}
-.video-buttons {
-  height: 128px;
-  left: 50%;
-  margin: -64px 0 0 -64px;
-  position: absolute;
-  top: 75%;
-  width: 128px;
-  z-index: 1;
-  display: flex;
-}
 
 @keyframes wave-animation {
   0%,
