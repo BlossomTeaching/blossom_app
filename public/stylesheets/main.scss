@@ -597,6 +597,10 @@ ul {
   margin: auto;
 }
 
+.hand {
+  list-style-type: none;
+}
+
 li:last-child {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
@@ -604,6 +608,16 @@ li:last-child {
 
 li:hover ~ li p {
   animation: wave-animation 0.3s infinite;
+}
+
+.mid-home {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.bird {
+  width: 45%;
 }
 
 footer {
@@ -646,13 +660,6 @@ footer {
   #videoBG {
     width: 100%;
     height: auto;
-  }
-}
-
-@media (max-aspect-ratio: 16/9) {
-  #videoBG {
-    width: auto;
-    height: 100%;
   }
 }
 
