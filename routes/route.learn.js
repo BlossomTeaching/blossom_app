@@ -17,7 +17,7 @@ router.get("/create", async (req, res) => {
   counter = 0;
   console.log("LESSON NUMBER CREATE", lessonNumber);
 
-  exerciseGenerator(userLevel, lessons[lessonNumber - 1]).then(obj => {
+  exerciseGenerator(userLevel, [1, 3]).then(obj => {
     exercise = obj;
     res.render("learn/create", {
       lessonNumber,
@@ -87,10 +87,10 @@ router.get("/end", async (req, res) => {
       allCurrent,
       layout: "play.hbs"
     });
+    console.log("AVG END", avg);
   } else {
     res.redirect("/learn/create");
   }
-  console.log("AVG END", avg);
 });
 
 router.get("/phrase/:id", async (req, res) => {
