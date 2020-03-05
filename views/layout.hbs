@@ -2,7 +2,10 @@
 <html lang="en">
 {{> head}}
 {{> scripts}}
+
+
 <body>
+    {{>errors}}
     {{#if teacher}}
     {{> teacherNav}}
     {{else if student}}

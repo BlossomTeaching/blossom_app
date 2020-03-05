@@ -70,6 +70,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.errors = req.flash("errors");
+  next();
+});
+
 const index = require("./routes/route.index");
 app.use("/", index);
 

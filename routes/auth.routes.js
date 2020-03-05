@@ -11,7 +11,15 @@ router.get("/signup", isLoggedOut(), (req, res) => {
 });
 
 router.post("/signup", isLoggedOut(), async (req, res) => {
-  const { firstname, lastname, roll, level, email, password, teacheremail } = req.body;
+  const {
+    firstname,
+    lastname,
+    roll,
+    level,
+    email,
+    password,
+    teacheremail
+  } = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
     const lessons = await lessonsMaker(level);
@@ -36,8 +44,8 @@ router.post("/signup", isLoggedOut(), async (req, res) => {
       }
     });
   } else {
-    req.flash("error", "Username already exits");
-    return res.render("auth/signup", { messages: req.flash("error") });
+    req.flash("errors", "Username already exits");
+    return res.render("auth/signup");
   }
 });
 
@@ -51,7 +59,7 @@ router.post("/login", (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      req.flash("error", "Invalid username or password");
+      req.flash("errors", "Invalid username or password");
       return res.redirect("/auth/login");
     }
     req.logIn(user, err => {
