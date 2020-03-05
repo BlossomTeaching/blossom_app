@@ -44,7 +44,7 @@ router.post("/signup", isLoggedOut(), async (req, res) => {
       }
     });
   } else {
-    req.flash("errors", "Username already exits");
+    req.flash("error", "Username already exits");
     return res.render("auth/signup");
   }
 });
@@ -59,7 +59,7 @@ router.post("/login", (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      req.flash("errors", "Invalid username or password");
+      req.flash("error", "Invalid username or password");
       return res.redirect("/auth/login");
     }
     req.logIn(user, err => {
