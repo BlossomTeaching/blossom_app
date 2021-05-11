@@ -33,7 +33,7 @@
     "flash": "^1.1.0",
     "hbs": "^4.1.0",
     "linkedin": "0.0.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mongoose": "^5.9.1",
     "morgan": "^1.9.1",
     "node-linkedin": "^0.5.6",
